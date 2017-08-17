@@ -55,6 +55,51 @@ int DP(int index,const vector<int>& v, vector<int>& temp)
     return temp[index];
 }
 
+//非递归版本
+int nonRecursion(const vector<int>& v,vector<int>& temp)
+{
+    //
+
+   /*
+    * 首先直接把递归版本的转移方程抄下来，然后把和递归相关的都去掉,变为下面的样子
+
+    int a=v[index]+DP(index+2,v,temp);
+    int b=DP(index+1,v,temp);
+    temp[index]=max(a,b);
+
+    变为：
+    int a=v[index]+temp[index+2]
+    int b=temp[index+1]
+    temp[index]=max(a,b);
+
+    然后根据需要，在前面加上for循环。比如我这里就需要从初始值size-3往下循环，变为
+    for(int index=v.size()-3;index>=0;index--)
+    {
+        int a=v[index]+temp[index+2]
+        int b=temp[index+1]
+        temp[index]=max(a,b);
+    }
+
+    然后还有一些边界条件
+    要是从尾端只有一家，没得选
+    temp[v.size()-1]=v[v.size()-1]
+    要是从尾端开始，只有两家，选最大的
+    temp[v.size()-2]=max(v[v.size()-1],v[v.size()-2])
+
+    */
+
+    //边界
+    temp[v.size()-1]=v[v.size()-1];
+    temp[v.size()-2]=max(v[v.size()-1],v[v.size()-2]);
+
+    for(int index=v.size()-3;index>=0;index--)
+    {
+        int a=v[index]+temp[index+2];
+        int b=temp[index+1];
+        temp[index]=max(a,b);
+    }
+    return temp[0];
+}
 
 
 int main()
@@ -66,20 +111,31 @@ int main()
     for(int i=0;i<n;i++)
         cin>>v[i];
 
+    //暴力搜索
     cout<<solve(0,v)<<endl;
 
+    //递归的DP
     //记录数组
     vector<int> temp(n);
     for(int i=0;i<n;i++)
     {
         temp[i]=-1;
     }
-
     cout<<DP(0,v,temp)<<endl;
 
     for(int i=0;i<n;i++)
     {
         cout<<temp[i]<<" ";
     }
+    cout<<endl;
+
+    //非递归的DP
+    vector<int> temp2(n);
+    cout<<nonRecursion(v,temp2)<<endl;
+    for(int i=0;i<n;i++)
+    {
+        cout<<temp2[i]<<" ";
+    }
+
     return 0;
 }
