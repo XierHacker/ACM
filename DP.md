@@ -332,6 +332,172 @@ int main()
 到这里，就算是说完了动态规划的基本套路了。但是更多的细节性的东西不能够忽视。下面继续
 看常见的动态规划问题。掌握常见的问题怎么设置状态。
 
+## 例题2.小兵向前冲
+在nxm的棋盘上面，小兵要从左下角走到右上角，只能够向上或者向右走，问有多少种走法.
+```c++
+#include <iostream>
+#include <vector>
+using namespace std;
+
+//暴力搜索，返回走法
+int f(int n,int m)
+{
+    //边界条件
+    //没有棋盘
+    if(n==0||m==0)
+        return 0;
+
+    //条状棋盘
+    if(n==1||m==1)
+        return 1;
+
+    return f(n-1,m)+f(n,m-1);
+}
+
+int main()
+{
+    int n,m;
+    cin>>n>>m;
+
+    cout<<f(n,m)<<endl;
+    return 0;
+}
+```
+
+## 例题3(0-1背包问题)
+小偷有一个容量为W的背包，有ｎ件物品，第i个价值为vi,且重wi.
+目标就是找到xi使得对于所有`xi={0,1}`,`sum(wi*xi)<=W`,且`sum(xi*vi)`最大
+
+这道题目应该是非常常见的一道题目了。看到了**最大**这个词汇，脑袋里面首先可以联想到是不是可以用动态规划。
+```c++
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+//暴力搜索(返回最大的重量),S表示已经选好的重量
+int search(int index,const vector<int>& v,const vector<int>& w,int W,int S)
+{
+    //边界条件,表示重量上面已经满足了。
+    if(S>=W)
+    {
+        return 0;
+    }
+    //边界条件，选到最后一个了，也就不能够继续选择了
+    if(index>=v.size())
+    {
+        return 0;
+    }
+
+    //要是选择index这个位置上面的物品的话,那么下一次搜索就是index+1开始,其中Ｓ增加了重量w[index],同时这个价值增加v[index].
+    // 至于后面的，就不用管了,这是递归搜索的任务。
+    //ａ都表示价值，因为我们函数的目的是为了求价值嘛
+    int a=search(index+1,v,w,W,S+w[index])+v[index];
+
+
+    //要是不选择index这个位置上面物品的话，那就从下一次搜索，什么也不做。
+    int b=search(index+1,v,w,W,S);
+
+    //我们的目的，就是得到最大值，所以直接return max就行
+    return max(a,b);
+
+}
+
+
+
+
+int main()
+{
+    int num;
+    int weight;
+    cin>>num;
+    vector<int> v(num);//价值
+    vector<int> w(num);//重量
+
+    for(int i=0;i<num;i++)
+    {
+        cin>>v[i];
+    }
+    for(int i=0;i<num;i++)
+    {
+        cin>>w[i];
+    }
+    cin>>weight;
+
+    cout<<search(0,v,w,weight,0);
+    return 0;
+}
+```
+
+
+## 例题4(leetcode322.Coin Change)
+You are given coins of different denominations and a total amount of money amount.
+Write a function to compute the fewest number of coins that you need to make up that amount.
+If that amount of money cannot be made up by any combination of the coins, return -1.
+
+Example 1:
+>coins = [1, 2, 5], amount = 11
+
+>return 3 (11 = 5 + 5 + 1)
+
+Example 2:
+>coins = [2], amount = 3
+
+>return -1.
+
+题目的意思很简单，就是给了不同面额的硬币，要你凑成一个数。并且硬币数量要最少。
+这里看到了**最少**这个字眼了，可以联想到动态规划。
+
+```c++
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int search(int index,int amount,const vector<int>& coins)
+{
+    //边界条件,amount刚好找零
+    if(amount==0)
+    {
+        return 0;
+    }
+
+    //有负数，说明搜索到了不合法状态
+    if(amount<0)
+    {
+        return 10000000;
+    }
+
+    if(index>=coins.size())
+    {
+        return 10000000;
+    }
+    //在一个index上面，要么选择，要么不选择,而且可以一直选择。
+    //选择这个index
+    int a=search(index,amount-coins[index],coins)+1;
+    //不选择这个index
+    int b=search(index+1,amount,coins);
+    return min(a,b);
+}
+
+
+
+int main()
+{
+    int num;
+    int amount;
+    cin>>num;
+    vector<int> coins(num);
+    for(int i=0;i<num;i++)
+        cin>>coins[i];
+    cin>>amount;
+    int res=search(0,amount,coins);
+    if(res<10000000)
+        cout<<res<<endl;
+    else
+        cout<<"-1"<<endl;
+    return 0;
+}
+```
 
 
 # 三.深度思考
