@@ -620,5 +620,257 @@ int main()
     return 0;
 }
 ```
+```c++
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+//暴力搜索
+int search(int index,int amount,const vector<int>& coins)
+{
+    //边界条件,amount刚好找零
+    if(amount==0)
+    {
+        return 0;
+    }
+
+    //有负数，说明搜索到了不合法状态
+    if(amount<0)
+    {
+        return 10000000;
+    }
+
+    if(index>=coins.size())
+    {
+        return 10000000;
+    }
+    //在一个index上面，要么选择，要么不选择,而且可以一直选择。
+    //选择这个index
+    int a=search(index,amount-coins[index],coins)+1;
+    //不选择这个index
+    int b=search(index+1,amount,coins);
+    return min(a,b);
+}
+
+//动态规划
+int DP(int index,int amount,const vector<int>& coins,vector<vector<int>>& temp)
+{
+    //首先把暴力搜索的直接抄下来就行。然后改一些条件就行
+
+    //边界条件,amount刚好找零
+    if(amount==0)
+    {
+        return 0;
+    }
+
+    //有负数，说明搜索到了不合法状态
+    if(amount<0)
+    {
+        return 10000000;
+    }
+
+    if(index>=coins.size())
+    {
+        return 10000000;
+    }
+
+    //要是计算过,因为要直接使用amount,
+    if(temp[index][amount]>-1)
+    {
+        return temp[index][amount];
+    }
+
+    //在一个index上面，要么选择，要么不选择,而且可以一直选择。
+    //选择这个index
+    int a=DP(index,amount-coins[index],coins,temp)+1;
+    //不选择这个index
+    int b=DP(index+1,amount,coins,temp);
+    temp[index][amount]=min(a,b);
+    return temp[index][amount];
+
+}
+
+//贪心算法
+void greedy(int amount, vector<int> coins)
+{
+    int result=0;
+    //排序一下
+    sort(coins.begin(),coins.end());
+
+    for(int i=coins.size()-1;i>=0;i++)
+    {
+        if(coins[i]<amount)
+        {
+            result+=(amount/coins[i]);
+            amount=amount%coins[i];
+        }
+    }
+    if(amount!=0)
+        cout<<"-1"<<endl;
+    else
+        cout<<result<<endl;
+}
+
+int main()
+{
+    int num;
+    int amount;
+    cin>>num;
+    vector<int> coins(num);
+    for(int i=0;i<num;i++)
+        cin>>coins[i];
+    cin>>amount;
+
+    //暴力搜索
+    int res=search(0,amount,coins);
+    if(res<10000000)
+    cout<<res<<endl;
+    else
+    cout<<"-1"<<endl;
+
+
+    //构造出一个存储值的二维数组
+    //因为amount是有值的，所以开数组的时候要格外小心
+    vector<vector<int>> temp(num,vector<int>(amount+1));
+    for(int i=0;i<num;i++)
+    {
+        for(int j=0;j<amount+1;j++)
+        {
+            temp[i][j]=-1;
+        }
+    }
+
+    int res_dp=DP(0,amount,coins,temp);
+    if(res_dp<10000000)
+        cout<<res_dp<<endl;
+    else
+        cout<<"-1"<<endl;
+
+
+    //输出temp 内容
+    for(int i=0;i<num;i++)
+    {
+        for(int j=0;j<amount+1;j++)
+        {
+            cout<<temp[i][j]<<" ";
+        }
+        cout<<endl;
+    }
+
+    //贪心
+    greedy(amount,coins);
+    return 0;
+}
+```
+
+
+
+
+## 最长公共子序列
+一个给定序列的子序列是在该序列中删去若干元素之后得到的序列。给定两个序列Ｘ和Ｙ，当
+一个序列Ｚ既是Ｘ的子序列，又是Ｙ的子序列时，那么叫做Ｚ是Ｘ和Ｙ的公共子序列。
+
+那么最长公共子序列就是子序列中最长的那个子序列.
+```c++
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+int max_value(int a,int b,int c)
+{
+    int temp=max(a,b);
+    return max(temp,c);
+}
+
+//暴力搜索
+int search(int index_s1,int index_s2,const string& s1,const string& s2)
+{
+    //边界条件
+    //有一个超出
+    if(index_s1>s1.size()||index_s2>s2.size())
+    {
+        return -1;
+    }
+
+    //都刚好取到末尾
+    if(index_s1==s1.size()&&index_s2==s2.size())
+    {
+        return 0;
+    }
+
+    //决策条件
+    //表示在某个位置刚好匹配，那么两个都往下移一位继续
+    int a=0;
+    if(s1[index_s1]==s2[index_s2])
+        a=search(index_s1+1,index_s2+1,s1,s2)+1;
+    //没有找到，尝试一个不变，另一个搜索
+    int b=search(index_s1,index_s2+1,s1,s2);
+    int c=search(index_s1+1,index_s2,s1,s2);
+    return max_value(a,b,c);
+}
+
+
+//动态规划
+int DP(int index_s1,int index_s2,const string& s1,const string& s2,vector<vector<int>>& temp)
+{
+    //边界条件
+    //有一个超出
+    if(index_s1>s1.size()||index_s2>s2.size())
+    {
+        return -1;
+    }
+
+    //都刚好取到末尾
+    if(index_s1==s1.size()&&index_s2==s2.size())
+    {
+        return 0;
+    }
+
+    //要是算过
+    if(temp[index_s1][index_s2]>-1)
+    {
+        return temp[index_s1][index_s2];
+    }
+    //决策条件
+    //表示在某个位置刚好匹配，那么两个都往下移一位继续
+    int a=0;
+    if(s1[index_s1]==s2[index_s2])
+        a=DP(index_s1+1,index_s2+1,s1,s2,temp)+1;
+    //没有找到，尝试一个不变，另一个搜索
+    int b=DP(index_s1,index_s2+1,s1,s2,temp);
+    int c=DP(index_s1+1,index_s2,s1,s2,temp);
+
+    temp[index_s1][index_s2]=max_value(a,b,c);
+    return temp[index_s1][index_s2];
+   // return max_value(a,b,c);
+}
+
+int main()
+{
+    string s1,s2;
+    cin>>s1>>s2;
+    //暴力搜索
+    cout<<search(0,0,s1,s2)<<endl;
+
+    //记录矩阵
+    vector<vector<int>> temp(s1.size()+1,vector<int>(s2.size()+1,-1));
+
+    //动态规划
+    cout<<DP(0,0,s1,s2,temp)<<endl;
+
+    for(int i=0;i<s1.size();i++)
+    {
+        for(int j=0;j<s2.size();j++)
+        {
+            cout<<temp[i][j]<<" ";
+        }
+        cout<<endl;
+    }
+
+    return 0;
+}
+```
+
 
 # 三.深度思考
