@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <stack>
 #include "link_list.h"
 
 //根据已经有的数组创建链表,并且返回头结点地址
@@ -67,6 +68,32 @@ int traversal(ListNode* head)
 
 }
 
+//从尾到头打印链表(反向遍历)
+void reverse_traversal(ListNode* head)
+{
+    //判断为空
+    if(head==nullptr||head->next==nullptr)
+        return ;
+    std::stack<ListNode*> nodes;
+    //因为头结点不存储元素
+    ListNode* r=head->next;
+    //往stack里面存节点地址
+    while(r!=nullptr)
+    {
+        nodes.push(r);
+        r=r->next;
+    }
+
+    //打印
+    while(!nodes.empty())
+    {
+        r=nodes.top();
+        std::cout<<r->value<<" ";
+        nodes.pop();
+    }
+    std::cout<<std::endl;
+}
+
 //尾部插入一个元素(头结点有可能改变)
 void addToTail(ListNode* &head,int value)
 {
@@ -130,6 +157,7 @@ bool remove_value(ListNode* head,int value)
         return true;
     }
 }
+
 
 
 

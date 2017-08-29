@@ -16,6 +16,9 @@ ListNode* createList(const std::vector<int>& v,int type);
 //遍历链表
 int traversal(ListNode* head);
 
+//从尾到头打印链表
+void reverse_traversal(ListNode* head);
+
 //尾部插入一个元素
 void addToTail(ListNode* &head,int value);
 
@@ -25,6 +28,9 @@ ListNode* find_value(ListNode* head,int value);
 
 //删除某个值,并且返回是否成功
 bool remove_value(ListNode* head,int value);
+
+
+
 
 
 #endif // LINK_LIST_H_

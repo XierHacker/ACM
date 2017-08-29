@@ -32,5 +32,6 @@ int main()
     {
         std::cout<<"no such value"<<std::endl;
     }
+    reverse_traversal(head);
     return 0;
 }
