@@ -173,6 +173,7 @@ void reverse_traversal(ListNode* head)
 ```
 
 ## 4.2 在O(1)时间删除链表节点
+
 ## 4.3 链表中倒数第K个节点
 在一个单链表中,要得到倒数第K个节点的话,要么从前往后遍历一次,得到节点总数,
 然后通过数学n-k+1个节点再遍历一次,
@@ -219,4 +220,37 @@ ListNode* re_k_th_node(ListNode* head,int k)
 
 
 ## 4.4 反转链表
+定义一个函数,输入一个链表的头结点,反转该链表,并输出反转后链表的头结点.
+```c++
+//反转链表,并且返回新的头结点地址
+ListNode* reverseList(ListNode* head)
+{
+    //判断是否有效
+    if(head==nullptr)
+        return nullptr;
+
+    ListNode* newHead=nullptr; //新的头结点
+    ListNode* r=head; //往下遍历的的指针
+    ListNode* pre=nullptr; //保存前一个地址
+
+    while(r!=nullptr)
+    {
+        ListNode* pNext=r->next; //保存后一个地址
+
+        //要是到最后的节点了,那么这个地址就是新的头结点地址
+        if(r->next==nullptr)
+            newHead=r;
+
+        //往前指
+        r->next=pre;
+
+        //更新
+        pre=r;
+        r=pNext;
+
+    }
+    return newHead;
+}
+```
+
 ## 4.5 合并两个排序链表

@@ -40,5 +40,9 @@ int main()
     //倒数第k个节点测试
     std::cout<<re_k_th_node(head,3)->value<<std::endl;
 
+    //字符串反转测试
+    ListNode* newHead=reverseList(head);
+    traversal(newHead);
+
     return 0;
 }

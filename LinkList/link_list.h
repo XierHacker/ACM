@@ -36,6 +36,8 @@ ListNode* k_th_node(ListNode* head,int k);
 //倒数第K个节点
 ListNode* re_k_th_node(ListNode* head,int k);
 
+//反转链表,并且返回新的头结点地址
+ListNode* reverseList(ListNode* head);
 
 
 

@@ -192,7 +192,35 @@ ListNode* re_k_th_node(ListNode* head,int k)
 }
 
 
+//反转链表,并且返回新的头结点地址
+ListNode* reverseList(ListNode* head)
+{
+    //判断是否有效
+    if(head==nullptr)
+        return nullptr;
 
+    ListNode* newHead=nullptr; //新的头结点
+    ListNode* r=head; //往下遍历的的指针
+    ListNode* pre=nullptr; //保存前一个地址
+
+    while(r!=nullptr)
+    {
+        ListNode* pNext=r->next; //保存后一个地址
+
+        //要是到最后的节点了,那么这个地址就是新的头结点地址
+        if(r->next==nullptr)
+            newHead=r;
+
+        //往前指
+        r->next=pre;
+
+        //更新
+        pre=r;
+        r=pNext;
+
+    }
+    return newHead;
+}
 
 
 
