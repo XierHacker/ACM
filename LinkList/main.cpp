@@ -5,6 +5,7 @@ using namespace std;
 
 int main()
 {
+    //创建链表测试
     vector<int> vec={1,2,3,4,5,6};
     //cout << "Hello world!" << endl;
     ListNode* head=createList(vec,0);
@@ -32,6 +33,12 @@ int main()
     {
         std::cout<<"no such value"<<std::endl;
     }
+
+    //反向输出测试
     reverse_traversal(head);
+
+    //倒数第k个节点测试
+    std::cout<<re_k_th_node(head,3)->value<<std::endl;
+
     return 0;
 }

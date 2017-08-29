@@ -30,6 +30,12 @@ ListNode* find_value(ListNode* head,int value);
 bool remove_value(ListNode* head,int value);
 
 
+//第K个节点
+ListNode* k_th_node(ListNode* head,int k);
+
+//倒数第K个节点
+ListNode* re_k_th_node(ListNode* head,int k);
+
 
 
 

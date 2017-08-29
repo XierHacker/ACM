@@ -171,3 +171,52 @@ void reverse_traversal(ListNode* head)
     std::cout<<std::endl;
 }
 ```
+
+## 4.2 在O(1)时间删除链表节点
+## 4.3 链表中倒数第K个节点
+在一个单链表中,要得到倒数第K个节点的话,要么从前往后遍历一次,得到节点总数,
+然后通过数学n-k+1个节点再遍历一次,
+
+**要么就是使用两个指针进行遍历**,遍历思想很简单,首先一个指针向前走到K个节点位置,
+然后另外一个指针开始和这个指针一起遍历.中间的间隔总是K.当前一个指针到最后一个节点时,
+后面才遍历的指针自然指向得是倒数第K个节点.
+
+然后,具体写代码的时候,需要考虑很多的情形.**不要漏掉一些细节**
+```c++
+//倒数第K个节点
+ListNode* re_k_th_node(ListNode* head,int k)
+{
+    //head为空和k为0没有意义
+    if(head==nullptr||k==0)
+        return nullptr;
+
+    //两个指针
+    ListNode* ahead=head;
+    ListNode* behind=nullptr;
+
+    //前面这个指针先走到K
+    //要是出现了过早出现nullptr的情况,表示数量不够K
+    for(int i=1;i<=k-1;i++)
+    {
+        if(ahead->next!=nullptr)
+            ahead=ahead->next;
+        else
+            return nullptr;
+    }
+    behind=head;
+
+    //一起遍历到末尾
+    while(ahead->next!=nullptr)
+    {
+        ahead=ahead->next;
+        behind=behind->next;
+    }
+
+    return behind;
+}
+```
+
+
+
+## 4.4 反转链表
+## 4.5 合并两个排序链表

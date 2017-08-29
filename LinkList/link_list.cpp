@@ -159,6 +159,37 @@ bool remove_value(ListNode* head,int value)
 }
 
 
+//倒数第K个节点
+ListNode* re_k_th_node(ListNode* head,int k)
+{
+    //head为空和k为0没有意义
+    if(head==nullptr||k==0)
+        return nullptr;
+
+    //两个指针
+    ListNode* ahead=head;
+    ListNode* behind=nullptr;
+
+    //前面这个指针先走到K
+    //要是出现了过早出现nullptr的情况,表示数量不够K
+    for(int i=1;i<=k-1;i++)
+    {
+        if(ahead->next!=nullptr)
+            ahead=ahead->next;
+        else
+            return nullptr;
+    }
+    behind=head;
+
+    //一起遍历到末尾
+    while(ahead->next!=nullptr)
+    {
+        ahead=ahead->next;
+        behind=behind->next;
+    }
+
+    return behind;
+}
 
 
 
