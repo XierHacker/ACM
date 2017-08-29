@@ -63,4 +63,118 @@ int traversal(ListNode* head)
         std::cout<<r->value<<" ";
         r=r->next;
     }
+    std::cout<<std::endl;
+
 }
+
+//尾部插入一个元素(头结点有可能改变)
+void addToTail(ListNode* &head,int value)
+{
+    //为新值创建空间
+    ListNode* s=new ListNode;
+    s->value=value;
+    s->next=nullptr;
+
+    //如果头结点本身就是空值
+    if(head==nullptr)
+    {
+        head=s;
+    }
+    else
+    {
+        ListNode* r=head;
+        //往下遍历
+        while(r->next!=nullptr)
+        {
+            r=r->next;
+        }
+        r->next=s;
+    }
+}
+
+
+//找到某个值,返回第一次出现的前一个节点地址
+ListNode* find_value(ListNode* head,int value)
+{
+    //判断head是否是空
+    if(head==nullptr)
+    {
+        return nullptr;
+    }
+
+    ListNode* r=head;
+    while(r->next!=nullptr)
+    {
+        if(r->next->value==value)
+        {
+            return r;
+        }
+        r=r->next;
+    }
+    return nullptr;
+}
+
+//删除某个值,并且返回是否成功
+bool remove_value(ListNode* head,int value)
+{
+    //先找到某个值
+    ListNode* p=find_value(head,value);
+    //值不存在
+    if(p==nullptr)
+        return false;
+    else
+    {
+        ListNode* r=p->next;
+        p->next=p->next->next;
+        delete r;
+        return true;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -61,6 +61,9 @@ ListNode* createList(const std::vector<int>& v,int type)
 }
 
 ```
+
+建立起一个链表之后,我们很常用
+
 # 二.双向链表
 # 三.循环链表
 # 四.一些题目
