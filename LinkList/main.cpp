@@ -44,5 +44,16 @@ int main()
     ListNode* newHead=reverseList(head);
     traversal(newHead);
 
+
+    //”––Ú¡¥±Ì≤‚ ‘
+    vector<int> vec1={1,3,5,6,9};
+    vector<int> vec2={2,4,5,6};
+
+    ListNode* head1=createList(vec1,0);
+    ListNode* head2=createList(vec2,0);
+
+    ListNode* mergedHead=mergeList(head1,head2);
+    traversal(mergedHead);
+
     return 0;
 }

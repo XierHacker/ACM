@@ -254,3 +254,32 @@ ListNode* reverseList(ListNode* head)
 ```
 
 ## 4.5 合并两个排序链表
+传入两个有序链表的头结点,然后输出合并之后新链表的头结点.
+用递归的方式来做就行
+```c++
+//合并两个有序链表
+ListNode* mergeList(ListNode* head1,ListNode* head2)
+{
+    //判断为空的情况
+    //要是两个都为空,返回也是空
+    if(head1==nullptr||head1->next==nullptr)
+        return head2;
+    if(head2==nullptr||head2->next==nullptr)
+        return head1;
+
+    ListNode* mergedHead=nullptr;
+
+    //用递归来完成
+    if(head1->next->value<head2->next->value)
+    {
+        mergedHead=head1;
+        mergedHead->next=mergeList(head1->next,head2);
+    }
+    else
+    {
+        mergedHead=head2;
+        mergedHead->next=mergeList(head1,head2->next);
+    }
+    return mergedHead;
+}
+```

@@ -39,7 +39,8 @@ ListNode* re_k_th_node(ListNode* head,int k);
 //反转链表,并且返回新的头结点地址
 ListNode* reverseList(ListNode* head);
 
-
+//合并两个有序链表
+ListNode* mergeList(ListNode* head1,ListNode* head2);
 
 #endif // LINK_LIST_H_
 
