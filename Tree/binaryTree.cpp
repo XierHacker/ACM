@@ -37,3 +37,73 @@ BTNode* example()
     return p1;
 }
 
+//先序遍历二叉树
+void pre_order(BTNode* root)
+{
+    if(root!=nullptr)
+    {
+        //访问根节点
+        std::cout<<root->value<<" ";
+
+        //先序遍历左子树
+        pre_order(root->lchild);
+
+        //先序遍历右子树
+        pre_order(root->rchild);
+    }
+}
+
+//中序遍历二叉树
+void in_order(BTNode* root)
+{
+    if(root!=nullptr)
+    {
+        //中序遍历左子树
+        in_order(root->lchild);
+        //访问根节点
+        std::cout<<root->value<<" ";
+        //中序遍历右子树
+        in_order(root->rchild);
+    }
+}
+
+//后序遍历二叉树
+void post_order(BTNode* root)
+{
+    if(root!=nullptr)
+    {
+        post_order(root->lchild);
+        post_order(root->rchild);
+        std::cout<<root->value<<" ";
+    }
+}
+
+
+//计算叶子结点数量
+//这里本身是按照先序遍历来的
+void count_leaf(BTNode* root,int& sum)
+{
+    if(root!=nullptr)
+    {
+        //左右子树都是空,说明是叶子结点
+        if((root->lchild==nullptr)&&(root->rchild==nullptr))
+        {
+            ++sum;
+            std::cout<<root->value<<" ";
+        }
+        count_leaf(root->lchild,sum);
+        count_leaf(root->rchild,sum);
+    }
+}
+
+//计算树的深度
+int getDepth(BTNode* root)
+{
+    //边界条件
+    if(root==nullptr)
+        return 0;
+
+    int LD=getDepth(root->lchild);
+    int RD=getDepth(root->rchild);
+    return std::max(LD,RD)+1;
+}
