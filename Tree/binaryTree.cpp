@@ -134,5 +134,4 @@ BTNode* copyTree(BTNode* root)
     newRoot->value=root->value;
 
     return newRoot;
-
 }
