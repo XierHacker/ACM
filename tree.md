@@ -111,6 +111,69 @@ void in_order(BTNode* root)
 }
 
 ```
+上面是中序遍历的递归思想,是非常简单直接的.符合人的思维习惯.同时,
+中序遍历还有非递归的遍历思想.算法过程为:
+
+步骤1:
+>要是该节点有左孩子,那么该节点入栈.
+
+>要是该节点没有左孩子,访问该节点.并且找右子树
+
+步骤2:
+>如果该节点有右子树,那么对于右子树重复步骤1.
+
+>如果结点没有右子树(结点访问完毕),根据栈顶指示回退,访问栈顶元素,并访问栈顶元素右子树
+
+```c++
+//中序遍历二叉树(非递归形式)
+//下面相当于步骤1
+BTNode* goLeft(BTNode* root,std::stack<BTNode*> &s)   //一直往左子树走,直到得到可以访问的结点
+{
+    //边界条件[判断
+    if(root==nullptr)
+        return nullptr;
+
+    //一直往左走,要是root一直有左孩子,那么就root入栈.
+    while(root->lchild!=nullptr)
+    {
+        s.push(root);
+        root=root->lchild;
+    }
+
+    //当root没有左孩子了,就返回root
+    return root;
+}
+void in_order2(BTNode* root)
+{
+    BTNode* t=nullptr;
+    //存储栈
+    std::stack<BTNode*> s;
+
+    //一直往左直到没有左孩子
+    t=goLeft(root,s);
+
+    while(t!=nullptr)
+    {
+        //输出该节点的内容
+        std::cout<<t->value<<" ";
+
+        //要是t有右子树,重复步骤1
+        if(t->rchild!=nullptr)
+        {
+            t=goLeft(t->rchild,s); //右子树中找到中序遍历起点
+        }
+        else if(!s.empty())     //要是t没有右子树,栈不为空
+        {
+            t=s.top();
+            s.pop();
+        }
+        else                    //要是t没有右子树,栈为空
+        {
+            t=nullptr;          //退出循环
+        }
+    }
+}
+```
 ### Ⅲ.后序遍历
 
 >后序遍历左子树
@@ -172,7 +235,41 @@ int getDepth(BTNode* root)
     return std::max(LD,RD)+1;
 }
 ```
-Ⅲ.
+
+### Ⅲ.拷贝一棵树
+依旧是递归的方式来分别拷贝左子树,右子树,和根节点,注意根节点的指向问题就行.
+```c++
+//拷贝一棵二叉树,并且返回根节点
+BTNode* copyTree(BTNode* root)
+{
+    BTNode* newRoot=nullptr;
+    BTNode* L_P=nullptr;
+    BTNode* R_P=nullptr;
+
+    //先copy左子树
+    if(root->lchild!=nullptr)
+    {
+        L_P=copyTree(root->lchild);
+    }
+
+    //copy右子树
+    if(root->rchild!=nullptr)
+    {
+        R_P=copyTree(root->rchild);
+    }
+
+    //弄出跟结点
+    newRoot=new BTNode;
+    newRoot->lchild=L_P;
+    newRoot->rchild=R_P;
+    newRoot->value=root->value;
+
+    return newRoot;
+}
+
+```
+
+
 Ⅳ
 Ⅴ
 Ⅵ

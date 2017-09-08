@@ -17,8 +17,10 @@ BTNode* example();
 //先序遍历二叉树
 void pre_order(BTNode* root);
 
-//中序遍历二叉树
+//中序遍历二叉树(递归形式)
 void in_order(BTNode* root);
+//中序遍历二叉树(非递归形式)
+void in_order2(BTNode* root);
 
 //后序遍历二叉树
 void post_order(BTNode* root);

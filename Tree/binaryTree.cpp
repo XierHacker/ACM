@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stack>
 #include "binaryTree.h"
 
 //创建一个二叉树例子,返回根节点地址
@@ -67,6 +68,54 @@ void in_order(BTNode* root)
     }
 }
 
+//中序遍历二叉树(非递归形式)
+
+BTNode* goLeft(BTNode* root,std::stack<BTNode*> &s)   //一直往左子树走,直到得到可以访问的结点
+{
+    //边界条件[判断
+    if(root==nullptr)
+        return nullptr;
+
+    //一直往左走,要是root一直有左孩子,那么就root入栈.
+    while(root->lchild!=nullptr)
+    {
+        s.push(root);
+        root=root->lchild;
+    }
+
+    //当root没有左孩子了,就返回root
+    return root;
+}
+void in_order2(BTNode* root)
+{
+    BTNode* t=nullptr;
+    //存储栈
+    std::stack<BTNode*> s;
+
+    //一直往左直到没有左孩子
+    t=goLeft(root,s);
+
+    while(t!=nullptr)
+    {
+        //输出该节点的内容
+        std::cout<<t->value<<" ";
+
+        //要是t有右子树,重复步骤1
+        if(t->rchild!=nullptr)
+        {
+            t=goLeft(t->rchild,s); //右子树中找到中序遍历起点
+        }
+        else if(!s.empty())     //要是t没有右子树,栈不为空
+        {
+            t=s.top();
+            s.pop();
+        }
+        else                    //要是t没有右子树,栈为空
+        {
+            t=nullptr;          //退出循环
+        }
+    }
+}
 //后序遍历二叉树
 void post_order(BTNode* root)
 {

@@ -16,6 +16,9 @@ int main()
     //中序遍历测试
     in_order(root);
     cout<<endl;
+    //中序遍历非递归
+    in_order2(root);
+    cout<<endl;
 
     //后序遍历测试
     post_order(root);
@@ -35,5 +38,7 @@ int main()
     std::cout<<std::endl;
     pre_order(new_root);
     std::cout<<std::endl;
+
+
     return 0;
 }
