@@ -107,3 +107,32 @@ int getDepth(BTNode* root)
     int RD=getDepth(root->rchild);
     return std::max(LD,RD)+1;
 }
+
+//拷贝一棵二叉树,并且返回根节点
+BTNode* copyTree(BTNode* root)
+{
+    BTNode* newRoot=nullptr;
+    BTNode* L_P=nullptr;
+    BTNode* R_P=nullptr;
+
+    //先copy左子树
+    if(root->lchild!=nullptr)
+    {
+        L_P=copyTree(root->lchild);
+    }
+
+    //copy右子树
+    if(root->rchild!=nullptr)
+    {
+        R_P=copyTree(root->rchild);
+    }
+
+    //弄出跟结点
+    newRoot=new BTNode;
+    newRoot->lchild=L_P;
+    newRoot->rchild=R_P;
+    newRoot->value=root->value;
+
+    return newRoot;
+
+}

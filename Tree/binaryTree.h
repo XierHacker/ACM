@@ -29,6 +29,7 @@ void count_leaf(BTNode* root,int& sum);
 //计算树的深度
 int getDepth(BTNode* root);
 
-
+//拷贝一棵二叉树,并且返回根节点
+BTNode* copyTree(BTNode* root);
 
 #endif // BINARY_TREE_H_

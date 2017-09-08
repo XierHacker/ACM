@@ -28,5 +28,12 @@ int main()
 
     //Éî¶È²âÊÔ
     std::cout<<"depth:"<<getDepth(root)<<std::endl;
+
+    //¿½±´²âÊÔ
+    BTNode* new_root=copyTree(root);
+    pre_order(root);
+    std::cout<<std::endl;
+    pre_order(new_root);
+    std::cout<<std::endl;
     return 0;
 }
