@@ -69,7 +69,6 @@ void in_order(BTNode* root)
 }
 
 //中序遍历二叉树(非递归形式)
-
 BTNode* goLeft(BTNode* root,std::stack<BTNode*> &s)   //一直往左子树走,直到得到可以访问的结点
 {
     //边界条件[判断
