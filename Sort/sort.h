@@ -6,5 +6,7 @@
 //ºÚµ•—°‘Ò≈≈–Ú∑®
 std::vector<int> select_sort(const std::vector<int>& v);
 
+//∂—≈≈–Ú
+std::vector<int> heap_sort(const std::vector<int>& v);
 
 #endif // SORT_H_

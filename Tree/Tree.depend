@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1504763365 source:c:\资料\workspace\acm\tree\binarytree.cpp
+	<iostream>
+	"binaryTree.h"
+
+1504905977 c:\资料\workspace\acm\tree\binarytree.h
+	<iostream>
+
+1504829766 source:c:\资料\workspace\acm\tree\main.cpp
+	<iostream>
+	"binaryTree.h"
+

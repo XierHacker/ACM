@@ -18,3 +18,15 @@ std::vector<int> select_sort(const std::vector<int>& v)
     return temp;
 }
 
+
+//∂—≈≈–Ú
+//Ω®∂—
+void buildHeap()
+{
+
+}
+std::vector<int> heap_sort(const std::vector<int>& v)
+{
+    auto temp=v;
+}
+

@@ -1,0 +1,18 @@
+# depslib dependency file v1.0
+1504994859 source:c:\资料\workspace\acm\sort\main.cpp
+	<iostream>
+	<vector>
+	"sort.h"
+	<vector>
+	<algorithm>
+	<iostream>
+
+1504995496 source:c:\资料\workspace\acm\sort\sort.cpp
+	<iostream>
+	<vector>
+	<algorithm>
+	"sort.h"
+
+1504994894 c:\资料\workspace\acm\sort\sort.h
+	<iostream>
+
