@@ -5,40 +5,39 @@ using namespace std;
 
 int main()
 {
-    //¶ş²æÊ÷Àı×Ó
+    //äºŒå‰æ ‘ä¾‹å­
     BTNode* root=example();
     cout<<root->lchild->value<<endl;
 
-    //ÏÈĞò±éÀú²âÊÔ
+    //å…ˆåºéå†æµ‹è¯•
     pre_order(root);
     cout<<endl;
 
-    //ÖĞĞò±éÀú²âÊÔ
+    //ä¸­åºéå†æµ‹è¯•
     in_order(root);
     cout<<endl;
-    //ÖĞĞò±éÀú·Çµİ¹é
+    //ä¸­åºéå†éé€’å½’
     in_order2(root);
     cout<<endl;
 
-    //ºóĞò±éÀú²âÊÔ
+    //ååºéå†æµ‹è¯•
     post_order(root);
     cout<<endl;
 
-    //Ò¶×Ó½áµã¸öÊı²âÊÔ
+    //å¶å­ç»“ç‚¹ä¸ªæ•°æµ‹è¯•
     int num=0;
     count_leaf(root,num);
     std::cout<<num<<endl;
 
-    //Éî¶È²âÊÔ
+    //æ·±åº¦æµ‹è¯•
     std::cout<<"depth:"<<getDepth(root)<<std::endl;
 
-    //¿½±´²âÊÔ
+    //æ‹·è´æµ‹è¯•
     BTNode* new_root=copyTree(root);
     pre_order(root);
     std::cout<<std::endl;
     pre_order(new_root);
     std::cout<<std::endl;
-
 
     return 0;
 }
