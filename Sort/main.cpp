@@ -34,7 +34,6 @@ int main()
 #include <iostream>
 #include <vector>
 #include "sort.h"
-
 using namespace std;
 
 void show(const std::vector<int>& v)
@@ -47,12 +46,22 @@ void show(const std::vector<int>& v)
 
 int main()
 {
-    //¹¹Ôì³öÒ»¸övector³öÀ´
+    //æ„é€ å‡ºä¸€ä¸ªvectorå‡ºæ¥
     vector<int> v={1,2,5,6,4,3,9,11,24,0,8,43,42,22};
 
-    //Ñ¡ÔñÅÅĞò²âÊÔ
+    //é€‰æ‹©æ’åºæµ‹è¯•
     auto v1=select_sort(v);
     show(v1);
+
+    //å†’æ³¡æ’åºæµ‹è¯•
+    auto v2=bubble_sort(v);
+    show(v2);
+
+    //å¿«é€Ÿæ’åºæµ‹è¯•
+    auto v3=v;
+    quick_sort(v3,0,v3.size()-1);
+    show(v3);
+
 
     return 0;
 }

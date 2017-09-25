@@ -3,10 +3,17 @@
 
 #include <iostream>
 
-//¼òµ¥Ñ¡ÔñÅÅĞò·¨
+//é€‰æ‹©æ’åº
 std::vector<int> select_sort(const std::vector<int>& v);
 
-//¶ÑÅÅĞò
+//å †æ’åº
 std::vector<int> heap_sort(const std::vector<int>& v);
 
+//å†’æ³¡æ’åº
+std::vector<int> bubble_sort(const std::vector<int>& v);
+
+//å¿«é€Ÿæ’åº
+void quick_sort(std::vector<int>& v,int left,int right); //å¯¹ä»v[left]åˆ°v[right]çš„å…ƒç´ è¿›è¡Œæ’åº
+
 #endif // SORT_H_
+
