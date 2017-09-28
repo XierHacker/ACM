@@ -28,6 +28,8 @@ int main()
 }
 
 
+
+
 */
 
 
@@ -62,10 +64,11 @@ int main()
     quick_sort(v3,0,v3.size()-1);
     show(v3);
 
-
+    //插入排序测试
+    auto v4=insert_sort(v);
+    show(v4);
     return 0;
 }
-
 
 
 

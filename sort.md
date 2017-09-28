@@ -20,6 +20,33 @@
 
 
 # 二.插入类排序
+## Ⅰ.直接插入排序
+```c++
+/*插入类排序*/
+//直接插入排序,返回一个拍好序的序列
+std::vector<int> insert_sort(const std::vector<int>& v)
+{
+    std::vector<int> temp=v;
+    int storage; //暂存元素
+    //从第二个元素开始,因为第一个元素是有序的
+    for(int i=1;i<temp.size();i++)
+    {
+        storage=temp[i];
+        int j=i-1;
+        //在前面"有序"的部分移动元素(为了插入)
+        while(j>=0&&storage<temp[j])
+        {
+            temp[j+1]=temp[j];
+            --j;
+        }
+        //把存的数放到应该的位置(插入)
+        temp[j+1]=storage;
+    }
+    return temp;
+}
+```
+## Ⅱ.折半插入排序
+
 # 三.交换类排序
 ## Ⅰ.冒泡排序
 冒泡排序是通过一系列的交换动作来完成排序的.首先第一个记录和第二个记录比较,
