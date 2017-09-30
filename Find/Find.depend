@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1506757169 source:f:\workspace\acm\find\find.cpp
+	<iostream>
+	<vector>
+	"find.h"
+
+1506757169 f:\workspace\acm\find\find.h
+

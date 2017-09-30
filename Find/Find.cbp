@@ -32,6 +32,8 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="find.cpp" />
+		<Unit filename="find.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />
