@@ -4,5 +4,10 @@
 	<vector>
 	"find.h"
 
-1506757169 f:\workspace\acm\find\find.h
+1506759966 f:\workspace\acm\find\find.h
+
+1506759966 source:f:\workspace\acm\find\main.cpp
+	<iostream>
+	<vector>
+	"find.h"
 

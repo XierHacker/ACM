@@ -53,4 +53,10 @@ int bi_search(int key,std::vector<int>& keys)
 }
 ```
 
+
+# 三.分支类查找
+Ⅰ.二叉排序树
+Ⅱ.平衡二叉树
+Ⅲ.
+Ⅳ
 # 四.Hash查找
