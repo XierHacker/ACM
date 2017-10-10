@@ -42,6 +42,8 @@ ListNode* reverseList(ListNode* head);
 //合并两个有序链表
 ListNode* mergeList(ListNode* head1,ListNode* head2);
 
+//判断链表是否有环
+bool hasCircle(ListNode* head);
 #endif // LINK_LIST_H_
 
 
