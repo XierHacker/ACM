@@ -3,22 +3,22 @@
 #include <stack>
 #include "link_list.h"
 
-//¸ù¾İÒÑ¾­ÓĞµÄÊı×é´´½¨Á´±í,²¢ÇÒ·µ»ØÍ·½áµãµØÖ·
-//type=0,±íÊ¾Î²²å·¨.type=1,±íÊ¾Í·²å·¨
+//æ ¹æ®å·²ç»æœ‰çš„æ•°ç»„åˆ›å»ºé“¾è¡¨,å¹¶ä¸”è¿”å›å¤´ç»“ç‚¹åœ°å€
+//type=0,è¡¨ç¤ºå°¾æ’æ³•.type=1,è¡¨ç¤ºå¤´æ’æ³•
 ListNode* createList(const std::vector<int>& v,int type)
 {
     switch(type)
     {
-        //Î²²å·¨
+        //å°¾æ’æ³•
         case 0:
             {
-                //´´½¨Í·½áµãºÍÒ»Ğ©±ØÒªµÄÖ¸Õë
+                //åˆ›å»ºå¤´ç»“ç‚¹å’Œä¸€äº›å¿…è¦çš„æŒ‡é’ˆ
                 ListNode* head=new ListNode;
                 head->next=nullptr;
 
-                ListNode* r=head;    //rÖ¸ÏòÍ·½áµã,ÒòÎª´ËÊ±Í·½áµã¾ÍÊÇÖÕ¶Ë½Úµã,ÇÒr²»¶Ï±ä»¯
+                ListNode* r=head;    //ræŒ‡å‘å¤´ç»“ç‚¹,å› ä¸ºæ­¤æ—¶å¤´ç»“ç‚¹å°±æ˜¯ç»ˆç«¯èŠ‚ç‚¹,ä¸”rä¸æ–­å˜åŒ–
 
-                //±éÀúvector´´½¨Á´±í
+                //éå†vectoråˆ›å»ºé“¾è¡¨
                 for(int i=0;i<v.size();i++)
                 {
                     ListNode* s=new ListNode;
@@ -31,17 +31,16 @@ ListNode* createList(const std::vector<int>& v,int type)
                 return head;
             }
 
-        //Í·²å·¨
+        //å¤´æ’æ³•
         case 1:
             {
-                //´´½¨Í·½áµãºÍÒ»Ğ©±ØÒªµÄÖ¸Õë
-                ListNode *head,*s;
-                head=new ListNode;
+                //åˆ›å»ºå¤´ç»“ç‚¹å’Œä¸€äº›å¿…è¦çš„æŒ‡é’ˆ
+                ListNode *head=new ListNode;
                 head->next=nullptr;
 
                 for(int i=0;i<v.size();i++)
                 {
-                    s=new ListNode;
+                    ListNode* s=new ListNode;
                     s->value=v[i];
                     s->next=head->next;
                     head->next=s;
@@ -51,7 +50,7 @@ ListNode* createList(const std::vector<int>& v,int type)
     }
 }
 
-//±éÀúÁ´±í
+//éå†é“¾è¡¨
 int traversal(ListNode* head)
 {
     ListNode* r=head->next;
@@ -68,23 +67,23 @@ int traversal(ListNode* head)
 
 }
 
-//´ÓÎ²µ½Í·´òÓ¡Á´±í(·´Ïò±éÀú)
+//ä»å°¾åˆ°å¤´æ‰“å°é“¾è¡¨(åå‘éå†)
 void reverse_traversal(ListNode* head)
 {
-    //ÅĞ¶ÏÎª¿Õ
+    //åˆ¤æ–­ä¸ºç©º
     if(head==nullptr||head->next==nullptr)
         return ;
     std::stack<ListNode*> nodes;
-    //ÒòÎªÍ·½áµã²»´æ´¢ÔªËØ
+    //å› ä¸ºå¤´ç»“ç‚¹ä¸å­˜å‚¨å…ƒç´ 
     ListNode* r=head->next;
-    //ÍùstackÀïÃæ´æ½ÚµãµØÖ·
+    //å¾€stacké‡Œé¢å­˜èŠ‚ç‚¹åœ°å€
     while(r!=nullptr)
     {
         nodes.push(r);
         r=r->next;
     }
 
-    //´òÓ¡
+    //æ‰“å°
     while(!nodes.empty())
     {
         r=nodes.top();
@@ -94,15 +93,15 @@ void reverse_traversal(ListNode* head)
     std::cout<<std::endl;
 }
 
-//Î²²¿²åÈëÒ»¸öÔªËØ(Í·½áµãÓĞ¿ÉÄÜ¸Ä±ä)
+//å°¾éƒ¨æ’å…¥ä¸€ä¸ªå…ƒç´ (å¤´ç»“ç‚¹æœ‰å¯èƒ½æ”¹å˜)
 void addToTail(ListNode* &head,int value)
 {
-    //ÎªĞÂÖµ´´½¨¿Õ¼ä
+    //ä¸ºæ–°å€¼åˆ›å»ºç©ºé—´
     ListNode* s=new ListNode;
     s->value=value;
     s->next=nullptr;
 
-    //Èç¹ûÍ·½áµã±¾Éí¾ÍÊÇ¿ÕÖµ
+    //å¦‚æœå¤´ç»“ç‚¹æœ¬èº«å°±æ˜¯ç©ºå€¼
     if(head==nullptr)
     {
         head=s;
@@ -110,7 +109,7 @@ void addToTail(ListNode* &head,int value)
     else
     {
         ListNode* r=head;
-        //ÍùÏÂ±éÀú
+        //å¾€ä¸‹éå†
         while(r->next!=nullptr)
         {
             r=r->next;
@@ -120,10 +119,10 @@ void addToTail(ListNode* &head,int value)
 }
 
 
-//ÕÒµ½Ä³¸öÖµ,·µ»ØµÚÒ»´Î³öÏÖµÄÇ°Ò»¸ö½ÚµãµØÖ·
+//æ‰¾åˆ°æŸä¸ªå€¼,è¿”å›ç¬¬ä¸€æ¬¡å‡ºç°çš„å‰ä¸€ä¸ªèŠ‚ç‚¹åœ°å€
 ListNode* find_value(ListNode* head,int value)
 {
-    //ÅĞ¶ÏheadÊÇ·ñÊÇ¿Õ
+    //åˆ¤æ–­headæ˜¯å¦æ˜¯ç©º
     if(head==nullptr)
     {
         return nullptr;
@@ -141,12 +140,12 @@ ListNode* find_value(ListNode* head,int value)
     return nullptr;
 }
 
-//É¾³ıÄ³¸öÖµ,²¢ÇÒ·µ»ØÊÇ·ñ³É¹¦
+//åˆ é™¤æŸä¸ªå€¼,å¹¶ä¸”è¿”å›æ˜¯å¦æˆåŠŸ
 bool remove_value(ListNode* head,int value)
 {
-    //ÏÈÕÒµ½Ä³¸öÖµ
+    //å…ˆæ‰¾åˆ°æŸä¸ªå€¼
     ListNode* p=find_value(head,value);
-    //Öµ²»´æÔÚ
+    //å€¼ä¸å­˜åœ¨
     if(p==nullptr)
         return false;
     else
@@ -159,19 +158,19 @@ bool remove_value(ListNode* head,int value)
 }
 
 
-//µ¹ÊıµÚK¸ö½Úµã
+//å€’æ•°ç¬¬Kä¸ªèŠ‚ç‚¹
 ListNode* re_k_th_node(ListNode* head,int k)
 {
-    //headÎª¿ÕºÍkÎª0Ã»ÓĞÒâÒå
+    //headä¸ºç©ºå’Œkä¸º0æ²¡æœ‰æ„ä¹‰
     if(head==nullptr||k==0)
         return nullptr;
 
-    //Á½¸öÖ¸Õë
+    //ä¸¤ä¸ªæŒ‡é’ˆ
     ListNode* ahead=head;
     ListNode* behind=nullptr;
 
-    //Ç°ÃæÕâ¸öÖ¸ÕëÏÈ×ßµ½K
-    //ÒªÊÇ³öÏÖÁË¹ıÔç³öÏÖnullptrµÄÇé¿ö,±íÊ¾ÊıÁ¿²»¹»K
+    //å‰é¢è¿™ä¸ªæŒ‡é’ˆå…ˆèµ°åˆ°K
+    //è¦æ˜¯å‡ºç°äº†è¿‡æ—©å‡ºç°nullptrçš„æƒ…å†µ,è¡¨ç¤ºæ•°é‡ä¸å¤ŸK
     for(int i=1;i<=k-1;i++)
     {
         if(ahead->next!=nullptr)
@@ -181,7 +180,7 @@ ListNode* re_k_th_node(ListNode* head,int k)
     }
     behind=head;
 
-    //Ò»Æğ±éÀúµ½Ä©Î²
+    //ä¸€èµ·éå†åˆ°æœ«å°¾
     while(ahead->next!=nullptr)
     {
         ahead=ahead->next;
@@ -192,29 +191,29 @@ ListNode* re_k_th_node(ListNode* head,int k)
 }
 
 
-//·´×ªÁ´±í,²¢ÇÒ·µ»ØĞÂµÄÍ·½áµãµØÖ·
+//åè½¬é“¾è¡¨,å¹¶ä¸”è¿”å›æ–°çš„å¤´ç»“ç‚¹åœ°å€
 ListNode* reverseList(ListNode* head)
 {
-    //ÅĞ¶ÏÊÇ·ñÓĞĞ§
+    //åˆ¤æ–­æ˜¯å¦æœ‰æ•ˆ
     if(head==nullptr)
         return nullptr;
 
-    ListNode* newHead=nullptr; //ĞÂµÄÍ·½áµã
-    ListNode* r=head; //ÍùÏÂ±éÀúµÄµÄÖ¸Õë
-    ListNode* pre=nullptr; //±£´æÇ°Ò»¸öµØÖ·
+    ListNode* newHead=nullptr; //æ–°çš„å¤´ç»“ç‚¹
+    ListNode* r=head; //å¾€ä¸‹éå†çš„çš„æŒ‡é’ˆ
+    ListNode* pre=nullptr; //ä¿å­˜å‰ä¸€ä¸ªåœ°å€
 
     while(r!=nullptr)
     {
-        ListNode* pNext=r->next; //±£´æºóÒ»¸öµØÖ·
+        ListNode* pNext=r->next; //ä¿å­˜åä¸€ä¸ªåœ°å€
 
-        //ÒªÊÇµ½×îºóµÄ½ÚµãÁË,ÄÇÃ´Õâ¸öµØÖ·¾ÍÊÇĞÂµÄÍ·½áµãµØÖ·
+        //è¦æ˜¯åˆ°æœ€åçš„èŠ‚ç‚¹äº†,é‚£ä¹ˆè¿™ä¸ªåœ°å€å°±æ˜¯æ–°çš„å¤´ç»“ç‚¹åœ°å€
         if(r->next==nullptr)
             newHead=r;
 
-        //ÍùÇ°Ö¸
+        //å¾€å‰æŒ‡
         r->next=pre;
 
-        //¸üĞÂ
+        //æ›´æ–°
         pre=r;
         r=pNext;
 
@@ -222,13 +221,11 @@ ListNode* reverseList(ListNode* head)
     return newHead;
 }
 
-
-
-//ºÏ²¢Á½¸öÓĞĞòÁ´±í
+//åˆå¹¶ä¸¤ä¸ªæœ‰åºé“¾è¡¨
 ListNode* mergeList(ListNode* head1,ListNode* head2)
 {
-    //ÅĞ¶ÏÎª¿ÕµÄÇé¿ö
-    //ÒªÊÇÁ½¸ö¶¼Îª¿Õ,·µ»ØÒ²ÊÇ¿Õ
+    //åˆ¤æ–­ä¸ºç©ºçš„æƒ…å†µ
+    //è¦æ˜¯ä¸¤ä¸ªéƒ½ä¸ºç©º,è¿”å›ä¹Ÿæ˜¯ç©º
     if(head1==nullptr||head1->next==nullptr)
         return head2;
     if(head2==nullptr||head2->next==nullptr)
@@ -236,7 +233,7 @@ ListNode* mergeList(ListNode* head1,ListNode* head2)
 
     ListNode* mergedHead=nullptr;
 
-    //ÓÃµİ¹éÀ´Íê³É
+    //ç”¨é€’å½’æ¥å®Œæˆ
     if(head1->next->value<head2->next->value)
     {
         mergedHead=head1;
@@ -250,9 +247,26 @@ ListNode* mergeList(ListNode* head1,ListNode* head2)
     return mergedHead;
 }
 
-//ÅĞ¶ÏÁ´±íÊÇ·ñÓĞ»·
+//åˆ¤æ–­é“¾è¡¨æ˜¯å¦æœ‰ç¯
 bool hasCircle(ListNode* head)
 {
+    //è¦æ˜¯ä¸å­˜åœ¨é“¾è¡¨ï¼ˆç»†èŠ‚éœ€è¦åˆ¤æ–­ï¼‰
+    if(head==nullptr||head->next==nullptr)
+        return false;
+
+    //å®šä¹‰å¿«æŒ‡é’ˆå’Œæ…¢æŒ‡é’ˆ
+    ListNode* pFast=head;
+    ListNode* pSlow=head;
+
+    while(pFast&&pFast->next)
+    {
+        pFast=pFast->next->next; //å¿«æŒ‡é’ˆä¸€æ¬¡æ€§èµ°ä¸¤æ­¥
+        pSlow=pSlow->next;        //æ…¢æŒ‡é’ˆä¸€æ¬¡æ€§èµ°ä¸€æ­¥
+
+        if(pFast==pSlow)
+            return true;
+    }
+    //æœ‰ä¸€ä¸ªæŒ‡é’ˆèµ°åˆ°äº†å°½å¤´,è¯´æ˜æ²¡æœ‰ç¯
     return false;
 }
 

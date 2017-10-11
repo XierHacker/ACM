@@ -34,4 +34,6 @@ int getDepth(BTNode* root);
 //拷贝一棵二叉树,并且返回根节点
 BTNode* copyTree(BTNode* root);
 
+//通过前序遍历和中序遍历来创建一颗树
+BTNode* construct_tree(std::string& PreOrder,std::string& InOrder);
 #endif // BINARY_TREE_H_

@@ -39,5 +39,18 @@ int main()
     pre_order(new_root);
     std::cout<<std::endl;
 
+
+    //前序遍历和后序遍历创建树的测试
+    string PreOrder="12473568";
+    string InOrder="47215386";
+    BTNode* cons_root=construct_tree(PreOrder,InOrder);
+    pre_order(cons_root);
+    std::cout<<std::endl;
+    in_order(cons_root);
+    std::cout<<std::endl;
+    post_order(cons_root);
+    std::cout<<std::endl;
+
+
     return 0;
 }

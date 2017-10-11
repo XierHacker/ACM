@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stack>
+#include <string>
 #include "binaryTree.h"
 
 //创建一个二叉树例子,返回根节点地址
@@ -182,4 +183,80 @@ BTNode* copyTree(BTNode* root)
     newRoot->value=root->value;
 
     return newRoot;
+}
+
+
+//通过前序遍历和中序遍历来创建一颗树
+//这个函数是创建树的核心递归函数(传入的是迭代器)
+BTNode* construct_core(std::string::iterator pre_order_begin,
+                       std::string::iterator pre_order_end,
+                       std::string::iterator in_order_begin,
+                       std::string::iterator in_order_end)
+{
+    //前序遍历序列的第一个数字是根节点的值
+    BTNode* root=new BTNode;
+    root->value=*pre_order_begin;
+    root->lchild=root->rchild=nullptr;
+
+    //边界条件，这个时候只有一个节点了
+    if(pre_order_begin==pre_order_end)
+    {
+        if((in_order_begin==in_order_end)&&(*pre_order_begin==*in_order_begin))
+            return root;
+        else
+        {
+            std::cout<<"invalid input"<<std::endl;
+            return nullptr;
+        }
+    }
+
+
+    //中序遍历中找到根节点的值
+    auto temp_itor=in_order_begin;
+    while((temp_itor<=in_order_end) && (*temp_itor!=root->value))
+    {
+        ++temp_itor;
+    }
+
+    if((temp_itor==in_order_end) && (*temp_itor!=root->value))  //意外判断
+    {
+        std::cout<<"invalid input"<<std::endl;
+        return nullptr;
+    }
+
+
+    int left_length=temp_itor-in_order_begin; //中序遍历序列判断左子树长度
+
+    auto left_pre_order_end=pre_order_begin+left_length; //左子树的末端迭代器
+
+    if(left_length>0)
+    {
+        //构建左子树
+        root->lchild=construct_core(pre_order_begin+1,left_pre_order_end,in_order_begin,temp_itor-1);
+    }
+    if(left_length<pre_order_end-pre_order_begin)
+    {
+        //构建右子树
+        root->rchild=construct_core(left_pre_order_end+1,pre_order_end,temp_itor+1,in_order_end);
+    }
+    return root;
+}
+
+//这里直接传入一个先序遍历的序列和一个中序遍历的序列就行了
+BTNode* construct_tree(std::string& PreOrder,std::string& InOrder)
+{
+    //条件判断
+    if(PreOrder.size()<=0||InOrder.size()<=0)  //没有元素的时候,那么不能够运行
+    {
+        std::cout<<"no element!"<<std::endl;
+        return nullptr;
+    }
+
+    if(PreOrder.size()!=InOrder.size())        //要是前序遍历和中序遍历的元素个数不一样，那么也是错误的
+    {
+        std::cout<<"invalid input!"<<std::endl;
+        return nullptr;
+    }
+    //调用递归函数
+    return construct_core(PreOrder.begin(),PreOrder.end()-1,InOrder.begin(),InOrder.end()-1);
 }
