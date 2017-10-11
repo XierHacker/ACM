@@ -22,15 +22,15 @@ ListNode* createList(const std::vector<int>& v,int type)
         case 0:
             {
                 //创建头结点和一些必要的指针
-                ListNode *head,*s,*r; //s指向新申请的节点,r指向终端节点
-                head=new ListNode;
+                ListNode* head=new ListNode;
                 head->next=nullptr;
-                r=head;    //r指向头结点,因为此时头结点就是终端节点
+                
+                ListNode* r=head;    //r指向头结点,因为此时头结点就是终端节点,且r不断变化
 
                 //遍历vector创建链表
                 for(int i=0;i<v.size();i++)
                 {
-                    s=new ListNode;
+                    ListNode* s=new ListNode;
                     s->value=v[i];
                     r->next=s;  //
                     r=s;
@@ -44,13 +44,12 @@ ListNode* createList(const std::vector<int>& v,int type)
         case 1:
             {
                 //创建头结点和一些必要的指针
-                ListNode *head,*s;
-                head=new ListNode;
+                ListNode *head=new ListNode;
                 head->next=nullptr;
 
                 for(int i=0;i<v.size();i++)
                 {
-                    s=new ListNode;
+                    ListNode* s=new ListNode;
                     s->value=v[i];
                     s->next=head->next;
                     head->next=s;
