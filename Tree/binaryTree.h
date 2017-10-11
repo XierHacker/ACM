@@ -25,6 +25,9 @@ void in_order2(BTNode* root);
 //后序遍历二叉树
 void post_order(BTNode* root);
 
+//逐层遍历二叉树
+void level_traversal(BTNode* root);
+
 //计算叶子结点数量
 void count_leaf(BTNode* root,int& sum);
 

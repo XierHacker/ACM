@@ -51,6 +51,7 @@ int main()
     post_order(cons_root);
     std::cout<<std::endl;
 
-
+    //层次遍历测试
+    level_traversal(root);
     return 0;
 }

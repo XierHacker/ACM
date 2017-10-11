@@ -1,6 +1,7 @@
 #include <iostream>
 #include <stack>
 #include <string>
+#include <deque>
 #include "binaryTree.h"
 
 //创建一个二叉树例子,返回根节点地址
@@ -125,6 +126,37 @@ void post_order(BTNode* root)
         post_order(root->rchild);
         std::cout<<root->value<<" ";
     }
+}
+
+//逐层遍历二叉树
+void level_traversal(BTNode* root)
+{
+    //意外判断
+    if(root==nullptr)
+        return ;
+
+    //存储节点指针
+    std::deque<BTNode*> Queue;
+    Queue.push_back(root);
+
+    while(Queue.size())
+    {
+        BTNode* temp_Node=Queue.front();
+
+        //打印头部(相当于遍历过了)
+        std::cout<<temp_Node->value<<" ";
+        //弹出头部
+        Queue.pop_front();
+
+        //要是有左边的话，存储左边
+        if(temp_Node->lchild)
+            Queue.push_back(temp_Node->lchild);
+        //要是有右边的话，存储右边
+        if(temp_Node->rchild)
+            Queue.push_back(temp_Node->rchild);
+    }
+    std::cout<<std::endl;
+
 }
 
 
@@ -260,3 +292,6 @@ BTNode* construct_tree(std::string& PreOrder,std::string& InOrder)
     //调用递归函数
     return construct_core(PreOrder.begin(),PreOrder.end()-1,InOrder.begin(),InOrder.end()-1);
 }
+
+
+

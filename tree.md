@@ -197,6 +197,49 @@ void post_order(BTNode* root)
 
 ```
 
+### Ⅳ.广度遍历二叉树(逐层遍历)
+逐层遍历的思想很简单，就是一层一层的遍历节点。一层遍历完成然后到下一层。
+逐层遍历的规律也很简单，当遍历一个节点的时候，要是这个节点有子节点，该节点的子节点放在队列的末尾，
+接下来从队列的头部取出节点，重复之前的操作。直到队列中所有节点都被遍历为止
+
+```c++
+//逐层遍历二叉树
+void level_traversal(BTNode* root)
+{
+    //意外判断
+    if(root==nullptr)
+        return ;
+
+    //存储节点指针
+    std::deque<BTNode*> Queue;
+    Queue.push_back(root);
+
+    while(Queue.size())
+    {
+        BTNode* temp_Node=Queue.front();
+
+        //打印头部(相当于遍历过了)
+        std::cout<<temp_Node->value<<" ";
+        //弹出头部
+        Queue.pop_front();
+
+        //要是有左边的话，存储左边
+        if(temp_Node->lchild)
+            Queue.push_back(temp_Node->lchild);
+        //要是有右边的话，存储右边
+        if(temp_Node->rchild)
+            Queue.push_back(temp_Node->rchild);
+    }
+    std::cout<<std::endl;
+
+}
+```
+
+
+
+
+
+
 ## 2.5 二叉树常见操作
 ### Ⅰ.计算叶子结点个数
 思路很简单,就是左右子树都是`nullptr`的就是叶子结点了.递归的遍历每一个结点
