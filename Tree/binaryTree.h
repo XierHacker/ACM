@@ -11,37 +11,40 @@ struct BTNode
 };
 
 
-//´´½¨Ò»¸ö¶þ²æÊ÷Àý×Ó,·µ»Ø¸ù½ÚµãµØÖ·
+//åˆ›å»ºä¸€ä¸ªäºŒå‰æ ‘ä¾‹å­,è¿”å›žæ ¹èŠ‚ç‚¹åœ°å€
 BTNode* example();
 
-//ÏÈÐò±éÀú¶þ²æÊ÷
+//å…ˆåºéåŽ†äºŒå‰æ ‘
 void pre_order(BTNode* root);
 
-//ÖÐÐò±éÀú¶þ²æÊ÷(µÝ¹éÐÎÊ½)
+//ä¸­åºéåŽ†äºŒå‰æ ‘(é€’å½’å½¢å¼)
 void in_order(BTNode* root);
-//ÖÐÐò±éÀú¶þ²æÊ÷(·ÇµÝ¹éÐÎÊ½)
+//ä¸­åºéåŽ†äºŒå‰æ ‘(éžé€’å½’å½¢å¼)
 void in_order2(BTNode* root);
 
-//ºóÐò±éÀú¶þ²æÊ÷
+//åŽåºéåŽ†äºŒå‰æ ‘
 void post_order(BTNode* root);
 
-//Öð²ã±éÀú¶þ²æÊ÷
+//é€å±‚éåŽ†äºŒå‰æ ‘
 void level_traversal(BTNode* root);
 
-//¼ÆËãÒ¶×Ó½áµãÊýÁ¿
+//è®¡ç®—å¶å­ç»“ç‚¹æ•°é‡
 void count_leaf(BTNode* root,int& sum);
 
-//¼ÆËãÊ÷µÄÉî¶È
+//è®¡ç®—æ ‘çš„æ·±åº¦
 int getDepth(BTNode* root);
 
-//¿½±´Ò»¿Ã¶þ²æÊ÷,²¢ÇÒ·µ»Ø¸ù½Úµã
+//æ‹·è´ä¸€æ£µäºŒå‰æ ‘,å¹¶ä¸”è¿”å›žæ ¹èŠ‚ç‚¹
 BTNode* copyTree(BTNode* root);
 
-//Í¨¹ýÇ°Ðò±éÀúºÍÖÐÐò±éÀúÀ´´´½¨Ò»¿ÅÊ÷
+//é€šè¿‡å‰åºéåŽ†å’Œä¸­åºéåŽ†æ¥åˆ›å»ºä¸€é¢—æ ‘
 BTNode* construct_tree(std::string& PreOrder,std::string& InOrder);
 
-//·­×ª¶þ²æÊ÷
+//ç¿»è½¬äºŒå‰æ ‘
 void tree_mirror(BTNode* root);
+
+//äºŒå‰æ ‘ä¸­å’Œä¸ºæŸä¸€å€¼çš„è·¯å¾„
+void findPath(BTNode* root,int expectedSum,std::vector<int> path,int realSum);
 
 
 #endif // BINARY_TREE_H_

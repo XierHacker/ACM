@@ -435,7 +435,50 @@ void tree_mirror(BTNode* root)
 ```
 
 
-Ⅵ
+### Ⅵ.二叉树中和为某一值的路径
+输入一棵树和一个整数，打印出二叉树中结点值的和为输入整数的所有路径。
+
+这里有一些重要的关注点：首先，我们需要先序遍历的方式来访问各个结点（这样才能够保证根节点先被访问），
+然后我们需要记录访问过得结点。同时，当从某个结点回退的时候，要删除记录中多余的结点。
+
+这里有一个规律了，当用前序遍历的方式访问到某一个结点的时候，我们把这个结点添加到路径上面。并且累加该节点的值。
+要是该节点为叶节点并且路径中节点总和为想要的值，那么当前路径复合要求，打印出来。
+```c++
+//二叉树中和为某一值的路径
+void findPath(BTNode* root,int expectedSum,std::vector<int> path,int realSum)
+{
+    //边界条件
+    if(root==nullptr)
+        return ;
+
+    realSum+=root->value;  //计算当前的和
+    path.push_back(root->value);   //把当前节点（值）添加到路径中
+    
+    //要是是叶节点，并且路径上面节点的和等于期望的值，那么就打印路径
+    bool isLeaf=(root->lchild==nullptr)&&(root->rchild==nullptr);
+    if(realSum==expectedSum&&isLeaf)
+    {
+        std::cout<<"find a path :"<<std::endl;
+        //输出
+        for(auto iter=path.begin();iter!=path.end();++iter)
+        {
+            std::cout<<*iter<<" ";
+        }
+        std:cout<<std::endl;
+    }
+    
+    //要是不是叶节点，就遍历它的子节点
+    if(root->lchild!=nullptr)
+        findPath(root->lchild,expectedSum,path,realSum);
+        
+    if(root->rchild!=nullptr)
+        findPath(root->rchild,expectedSum,path,realSum);
+    
+    //回到父节点之前，路经上删除当前节点
+    path.pop_back();
+    
+}
+```
 
 # 二.二叉排序树
 ## Ⅰ.概念和结构

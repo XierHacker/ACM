@@ -5,18 +5,18 @@
 #include <algorithm>
 #include "binaryTree.h"
 
-//´´½¨Ò»¸ö¶ş²æÊ÷Àı×Ó,·µ»Ø¸ù½ÚµãµØÖ·
+//åˆ›å»ºä¸€ä¸ªäºŒå‰æ ‘ä¾‹å­,è¿”å›æ ¹èŠ‚ç‚¹åœ°å€
 BTNode* example()
 {
     BTNode *p1,*p2,*p3,*p4,*p5;
-    //·ÖÅä¿Õ¼ä²¢ÇÒ·µ»ØµØÖ·
+    //åˆ†é…ç©ºé—´å¹¶ä¸”è¿”å›åœ°å€
     p1=new BTNode;
     p2=new BTNode;
     p3=new BTNode;
     p4=new BTNode;
     p5=new BTNode;
 
-    //Ğ´Èë½áµãÄÚÈİ
+    //å†™å…¥ç»“ç‚¹å†…å®¹
     p1->value='A';
     p2->value='B';
     p3->value='C';
@@ -41,84 +41,84 @@ BTNode* example()
     return p1;
 }
 
-//ÏÈĞò±éÀú¶ş²æÊ÷
+//å…ˆåºéå†äºŒå‰æ ‘
 void pre_order(BTNode* root)
 {
     if(root!=nullptr)
     {
-        //·ÃÎÊ¸ù½Úµã
+        //è®¿é—®æ ¹èŠ‚ç‚¹
         std::cout<<root->value<<" ";
 
-        //ÏÈĞò±éÀú×ó×ÓÊ÷
+        //å…ˆåºéå†å·¦å­æ ‘
         pre_order(root->lchild);
 
-        //ÏÈĞò±éÀúÓÒ×ÓÊ÷
+        //å…ˆåºéå†å³å­æ ‘
         pre_order(root->rchild);
     }
 }
 
-//ÖĞĞò±éÀú¶ş²æÊ÷
+//ä¸­åºéå†äºŒå‰æ ‘
 void in_order(BTNode* root)
 {
     if(root!=nullptr)
     {
-        //ÖĞĞò±éÀú×ó×ÓÊ÷
+        //ä¸­åºéå†å·¦å­æ ‘
         in_order(root->lchild);
-        //·ÃÎÊ¸ù½Úµã
+        //è®¿é—®æ ¹èŠ‚ç‚¹
         std::cout<<root->value<<" ";
-        //ÖĞĞò±éÀúÓÒ×ÓÊ÷
+        //ä¸­åºéå†å³å­æ ‘
         in_order(root->rchild);
     }
 }
 
-//ÖĞĞò±éÀú¶ş²æÊ÷(·Çµİ¹éĞÎÊ½)
-BTNode* goLeft(BTNode* root,std::stack<BTNode*> &s)   //Ò»Ö±Íù×ó×ÓÊ÷×ß,Ö±µ½µÃµ½¿ÉÒÔ·ÃÎÊµÄ½áµã
+//ä¸­åºéå†äºŒå‰æ ‘(éé€’å½’å½¢å¼)
+BTNode* goLeft(BTNode* root,std::stack<BTNode*> &s)   //ä¸€ç›´å¾€å·¦å­æ ‘èµ°,ç›´åˆ°å¾—åˆ°å¯ä»¥è®¿é—®çš„ç»“ç‚¹
 {
-    //±ß½çÌõ¼ş[ÅĞ¶Ï
+    //è¾¹ç•Œæ¡ä»¶[åˆ¤æ–­
     if(root==nullptr)
         return nullptr;
 
-    //Ò»Ö±Íù×ó×ß,ÒªÊÇrootÒ»Ö±ÓĞ×óº¢×Ó,ÄÇÃ´¾ÍrootÈëÕ».
+    //ä¸€ç›´å¾€å·¦èµ°,è¦æ˜¯rootä¸€ç›´æœ‰å·¦å­©å­,é‚£ä¹ˆå°±rootå…¥æ ˆ.
     while(root->lchild!=nullptr)
     {
         s.push(root);
         root=root->lchild;
     }
 
-    //µ±rootÃ»ÓĞ×óº¢×ÓÁË,¾Í·µ»Øroot
+    //å½“rootæ²¡æœ‰å·¦å­©å­äº†,å°±è¿”å›root
     return root;
 }
 void in_order2(BTNode* root)
 {
     BTNode* t=nullptr;
-    //´æ´¢Õ»
+    //å­˜å‚¨æ ˆ
     std::stack<BTNode*> s;
 
-    //Ò»Ö±Íù×óÖ±µ½Ã»ÓĞ×óº¢×Ó
+    //ä¸€ç›´å¾€å·¦ç›´åˆ°æ²¡æœ‰å·¦å­©å­
     t=goLeft(root,s);
 
     while(t!=nullptr)
     {
-        //Êä³ö¸Ã½ÚµãµÄÄÚÈİ
+        //è¾“å‡ºè¯¥èŠ‚ç‚¹çš„å†…å®¹
         std::cout<<t->value<<" ";
 
-        //ÒªÊÇtÓĞÓÒ×ÓÊ÷,ÖØ¸´²½Öè1
+        //è¦æ˜¯tæœ‰å³å­æ ‘,é‡å¤æ­¥éª¤1
         if(t->rchild!=nullptr)
         {
-            t=goLeft(t->rchild,s); //ÓÒ×ÓÊ÷ÖĞÕÒµ½ÖĞĞò±éÀúÆğµã
+            t=goLeft(t->rchild,s); //å³å­æ ‘ä¸­æ‰¾åˆ°ä¸­åºéå†èµ·ç‚¹
         }
-        else if(!s.empty())     //ÒªÊÇtÃ»ÓĞÓÒ×ÓÊ÷,Õ»²»Îª¿Õ
+        else if(!s.empty())     //è¦æ˜¯tæ²¡æœ‰å³å­æ ‘,æ ˆä¸ä¸ºç©º
         {
             t=s.top();
             s.pop();
         }
-        else                    //ÒªÊÇtÃ»ÓĞÓÒ×ÓÊ÷,Õ»Îª¿Õ
+        else                    //è¦æ˜¯tæ²¡æœ‰å³å­æ ‘,æ ˆä¸ºç©º
         {
-            t=nullptr;          //ÍË³öÑ­»·
+            t=nullptr;          //é€€å‡ºå¾ªç¯
         }
     }
 }
-//ºóĞò±éÀú¶ş²æÊ÷
+//ååºéå†äºŒå‰æ ‘
 void post_order(BTNode* root)
 {
     if(root!=nullptr)
@@ -129,14 +129,14 @@ void post_order(BTNode* root)
     }
 }
 
-//Öğ²ã±éÀú¶ş²æÊ÷
+//é€å±‚éå†äºŒå‰æ ‘
 void level_traversal(BTNode* root)
 {
-    //ÒâÍâÅĞ¶Ï
+    //æ„å¤–åˆ¤æ–­
     if(root==nullptr)
         return ;
 
-    //´æ´¢½ÚµãÖ¸Õë
+    //å­˜å‚¨èŠ‚ç‚¹æŒ‡é’ˆ
     std::deque<BTNode*> Queue;
     Queue.push_back(root);
 
@@ -144,15 +144,15 @@ void level_traversal(BTNode* root)
     {
         BTNode* temp_Node=Queue.front();
 
-        //´òÓ¡Í·²¿(Ïàµ±ÓÚ±éÀú¹ıÁË)
+        //æ‰“å°å¤´éƒ¨(ç›¸å½“äºéå†è¿‡äº†)
         std::cout<<temp_Node->value<<" ";
-        //µ¯³öÍ·²¿
+        //å¼¹å‡ºå¤´éƒ¨
         Queue.pop_front();
 
-        //ÒªÊÇÓĞ×ó±ßµÄ»°£¬´æ´¢×ó±ß
+        //è¦æ˜¯æœ‰å·¦è¾¹çš„è¯ï¼Œå­˜å‚¨å·¦è¾¹
         if(temp_Node->lchild)
             Queue.push_back(temp_Node->lchild);
-        //ÒªÊÇÓĞÓÒ±ßµÄ»°£¬´æ´¢ÓÒ±ß
+        //è¦æ˜¯æœ‰å³è¾¹çš„è¯ï¼Œå­˜å‚¨å³è¾¹
         if(temp_Node->rchild)
             Queue.push_back(temp_Node->rchild);
     }
@@ -161,13 +161,13 @@ void level_traversal(BTNode* root)
 }
 
 
-//¼ÆËãÒ¶×Ó½áµãÊıÁ¿
-//ÕâÀï±¾ÉíÊÇ°´ÕÕÏÈĞò±éÀúÀ´µÄ
+//è®¡ç®—å¶å­ç»“ç‚¹æ•°é‡
+//è¿™é‡Œæœ¬èº«æ˜¯æŒ‰ç…§å…ˆåºéå†æ¥çš„
 void count_leaf(BTNode* root,int& sum)
 {
     if(root!=nullptr)
     {
-        //×óÓÒ×ÓÊ÷¶¼ÊÇ¿Õ,ËµÃ÷ÊÇÒ¶×Ó½áµã
+        //å·¦å³å­æ ‘éƒ½æ˜¯ç©º,è¯´æ˜æ˜¯å¶å­ç»“ç‚¹
         if((root->lchild==nullptr)&&(root->rchild==nullptr))
         {
             ++sum;
@@ -178,10 +178,10 @@ void count_leaf(BTNode* root,int& sum)
     }
 }
 
-//¼ÆËãÊ÷µÄÉî¶È
+//è®¡ç®—æ ‘çš„æ·±åº¦
 int getDepth(BTNode* root)
 {
-    //±ß½çÌõ¼ş
+    //è¾¹ç•Œæ¡ä»¶
     if(root==nullptr)
         return 0;
 
@@ -190,26 +190,26 @@ int getDepth(BTNode* root)
     return std::max(LD,RD)+1;
 }
 
-//¿½±´Ò»¿Ã¶ş²æÊ÷,²¢ÇÒ·µ»Ø¸ù½Úµã
+//æ‹·è´ä¸€æ£µäºŒå‰æ ‘,å¹¶ä¸”è¿”å›æ ¹èŠ‚ç‚¹
 BTNode* copyTree(BTNode* root)
 {
     BTNode* newRoot=nullptr;
     BTNode* L_P=nullptr;
     BTNode* R_P=nullptr;
 
-    //ÏÈcopy×ó×ÓÊ÷
+    //å…ˆcopyå·¦å­æ ‘
     if(root->lchild!=nullptr)
     {
         L_P=copyTree(root->lchild);
     }
 
-    //copyÓÒ×ÓÊ÷
+    //copyå³å­æ ‘
     if(root->rchild!=nullptr)
     {
         R_P=copyTree(root->rchild);
     }
 
-    //Åª³ö¸ú½áµã
+    //å¼„å‡ºè·Ÿç»“ç‚¹
     newRoot=new BTNode;
     newRoot->lchild=L_P;
     newRoot->rchild=R_P;
@@ -219,19 +219,19 @@ BTNode* copyTree(BTNode* root)
 }
 
 
-//Í¨¹ıÇ°Ğò±éÀúºÍÖĞĞò±éÀúÀ´´´½¨Ò»¿ÅÊ÷
-//Õâ¸öº¯ÊıÊÇ´´½¨Ê÷µÄºËĞÄµİ¹éº¯Êı(´«ÈëµÄÊÇµü´úÆ÷)
+//é€šè¿‡å‰åºéå†å’Œä¸­åºéå†æ¥åˆ›å»ºä¸€é¢—æ ‘
+//è¿™ä¸ªå‡½æ•°æ˜¯åˆ›å»ºæ ‘çš„æ ¸å¿ƒé€’å½’å‡½æ•°(ä¼ å…¥çš„æ˜¯è¿­ä»£å™¨)
 BTNode* construct_core(std::string::iterator pre_order_begin,
                        std::string::iterator pre_order_end,
                        std::string::iterator in_order_begin,
                        std::string::iterator in_order_end)
 {
-    //Ç°Ğò±éÀúĞòÁĞµÄµÚÒ»¸öÊı×ÖÊÇ¸ù½ÚµãµÄÖµ
+    //å‰åºéå†åºåˆ—çš„ç¬¬ä¸€ä¸ªæ•°å­—æ˜¯æ ¹èŠ‚ç‚¹çš„å€¼
     BTNode* root=new BTNode;
     root->value=*pre_order_begin;
     root->lchild=root->rchild=nullptr;
 
-    //±ß½çÌõ¼ş£¬Õâ¸öÊ±ºòÖ»ÓĞÒ»¸ö½ÚµãÁË
+    //è¾¹ç•Œæ¡ä»¶ï¼Œè¿™ä¸ªæ—¶å€™åªæœ‰ä¸€ä¸ªèŠ‚ç‚¹äº†
     if(pre_order_begin==pre_order_end)
     {
         if((in_order_begin==in_order_end)&&(*pre_order_begin==*in_order_begin))
@@ -244,76 +244,109 @@ BTNode* construct_core(std::string::iterator pre_order_begin,
     }
 
 
-    //ÖĞĞò±éÀúÖĞÕÒµ½¸ù½ÚµãµÄÖµ
+    //ä¸­åºéå†ä¸­æ‰¾åˆ°æ ¹èŠ‚ç‚¹çš„å€¼
     auto temp_itor=in_order_begin;
     while((temp_itor<=in_order_end) && (*temp_itor!=root->value))
     {
         ++temp_itor;
     }
 
-    if((temp_itor==in_order_end) && (*temp_itor!=root->value))  //ÒâÍâÅĞ¶Ï
+    if((temp_itor==in_order_end) && (*temp_itor!=root->value))  //æ„å¤–åˆ¤æ–­
     {
         std::cout<<"invalid input"<<std::endl;
         return nullptr;
     }
 
 
-    int left_length=temp_itor-in_order_begin; //ÖĞĞò±éÀúĞòÁĞÅĞ¶Ï×ó×ÓÊ÷³¤¶È
+    int left_length=temp_itor-in_order_begin; //ä¸­åºéå†åºåˆ—åˆ¤æ–­å·¦å­æ ‘é•¿åº¦
 
-    auto left_pre_order_end=pre_order_begin+left_length; //×ó×ÓÊ÷µÄÄ©¶Ëµü´úÆ÷
+    auto left_pre_order_end=pre_order_begin+left_length; //å·¦å­æ ‘çš„æœ«ç«¯è¿­ä»£å™¨
 
     if(left_length>0)
     {
-        //¹¹½¨×ó×ÓÊ÷
+        //æ„å»ºå·¦å­æ ‘
         root->lchild=construct_core(pre_order_begin+1,left_pre_order_end,in_order_begin,temp_itor-1);
     }
     if(left_length<pre_order_end-pre_order_begin)
     {
-        //¹¹½¨ÓÒ×ÓÊ÷
+        //æ„å»ºå³å­æ ‘
         root->rchild=construct_core(left_pre_order_end+1,pre_order_end,temp_itor+1,in_order_end);
     }
     return root;
 }
 
-//ÕâÀïÖ±½Ó´«ÈëÒ»¸öÏÈĞò±éÀúµÄĞòÁĞºÍÒ»¸öÖĞĞò±éÀúµÄĞòÁĞ¾ÍĞĞÁË
+//è¿™é‡Œç›´æ¥ä¼ å…¥ä¸€ä¸ªå…ˆåºéå†çš„åºåˆ—å’Œä¸€ä¸ªä¸­åºéå†çš„åºåˆ—å°±è¡Œäº†
 BTNode* construct_tree(std::string& PreOrder,std::string& InOrder)
 {
-    //Ìõ¼şÅĞ¶Ï
-    if(PreOrder.size()<=0||InOrder.size()<=0)  //Ã»ÓĞÔªËØµÄÊ±ºò,ÄÇÃ´²»ÄÜ¹»ÔËĞĞ
+    //æ¡ä»¶åˆ¤æ–­
+    if(PreOrder.size()<=0||InOrder.size()<=0)  //æ²¡æœ‰å…ƒç´ çš„æ—¶å€™,é‚£ä¹ˆä¸èƒ½å¤Ÿè¿è¡Œ
     {
         std::cout<<"no element!"<<std::endl;
         return nullptr;
     }
 
-    if(PreOrder.size()!=InOrder.size())        //ÒªÊÇÇ°Ğò±éÀúºÍÖĞĞò±éÀúµÄÔªËØ¸öÊı²»Ò»Ñù£¬ÄÇÃ´Ò²ÊÇ´íÎóµÄ
+    if(PreOrder.size()!=InOrder.size())        //è¦æ˜¯å‰åºéå†å’Œä¸­åºéå†çš„å…ƒç´ ä¸ªæ•°ä¸ä¸€æ ·ï¼Œé‚£ä¹ˆä¹Ÿæ˜¯é”™è¯¯çš„
     {
         std::cout<<"invalid input!"<<std::endl;
         return nullptr;
     }
-    //µ÷ÓÃµİ¹éº¯Êı
+    //è°ƒç”¨é€’å½’å‡½æ•°
     return construct_core(PreOrder.begin(),PreOrder.end()-1,InOrder.begin(),InOrder.end()-1);
 }
 
 
-//·­×ª¶ş²æÊ÷
+//ç¿»è½¬äºŒå‰æ ‘
 void tree_mirror(BTNode* root)
 {
-    //±ß½çÅĞ¶Ï
+    //è¾¹ç•Œåˆ¤æ–­
     if(root==nullptr)
         return ;
-    if(root->lchild==nullptr && root->rchild==nullptr)  //Ã»ÓĞ×óÓÒº¢×Ó
+    if(root->lchild==nullptr && root->rchild==nullptr)  //æ²¡æœ‰å·¦å³å­©å­
         return ;
 
-    //½»»»×óÓÒº¢×Ó
+    //äº¤æ¢å·¦å³å­©å­
     std::swap(root->lchild,root->rchild);
 
-    //¶ÔÓÚ×óº¢×Óµİ¹éÊ¹ÓÃ·´×ªº¯Êı
+    //å¯¹äºå·¦å­©å­é€’å½’ä½¿ç”¨åè½¬å‡½æ•°
     if(root->lchild)
         tree_mirror(root->lchild);
 
-    //¶ÔÓÚÓÒº¢×Óµİ¹éÊ¹ÓÃ·­×ªº¯Êı
+    //å¯¹äºå³å­©å­é€’å½’ä½¿ç”¨ç¿»è½¬å‡½æ•°
     if(root->rchild)
         tree_mirror(root->rchild);
 }
 
+//äºŒå‰æ ‘ä¸­å’Œä¸ºæŸä¸€å€¼çš„è·¯å¾„
+void findPath(BTNode* root,int expectedSum,std::vector<int> path,int realSum)
+{
+    //è¾¹ç•Œæ¡ä»¶
+    if(root==nullptr)
+        return ;
 
+    realSum+=root->value;  //è®¡ç®—å½“å‰çš„å’Œ
+    path.push_back(root->value);   //æŠŠå½“å‰èŠ‚ç‚¹ï¼ˆå€¼ï¼‰æ·»åŠ åˆ°è·¯å¾„ä¸­
+
+    //è¦æ˜¯æ˜¯å¶èŠ‚ç‚¹ï¼Œå¹¶ä¸”è·¯å¾„ä¸Šé¢èŠ‚ç‚¹çš„å’Œç­‰äºæœŸæœ›çš„å€¼ï¼Œé‚£ä¹ˆå°±æ‰“å°è·¯å¾„
+    bool isLeaf=(root->lchild==nullptr)&&(root->rchild==nullptr);
+    if(realSum==expectedSum&&isLeaf)
+    {
+        std::cout<<"find a path :"<<std::endl;
+        //è¾“å‡º
+        for(auto iter=path.begin();iter!=path.end();++iter)
+        {
+            std::cout<<*iter<<" ";
+        }
+        std:cout<<std::endl;
+    }
+
+    //è¦æ˜¯ä¸æ˜¯å¶èŠ‚ç‚¹ï¼Œå°±éå†å®ƒçš„å­èŠ‚ç‚¹
+    if(root->lchild!=nullptr)
+        findPath(root->lchild,expectedSum,path,realSum);
+
+    if(root->rchild!=nullptr)
+        findPath(root->rchild,expectedSum,path,realSum);
+
+    //å›åˆ°çˆ¶èŠ‚ç‚¹ä¹‹å‰ï¼Œè·¯ç»ä¸Šåˆ é™¤å½“å‰èŠ‚ç‚¹
+    path.pop_back();
+
+}
