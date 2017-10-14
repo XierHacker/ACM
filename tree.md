@@ -522,6 +522,64 @@ struct BSTNode
 平衡因子：一个结点的平衡因子为其**左子树的高度减去右子树高度的差。** 所以，一个平衡二叉树中所有结点的平衡因子的
 取值只能够是-1,0,1三个值。
 
+判断是否是二叉平衡树
+```c++
+//计算树的深度
+int getDepth(BTNode* root)
+{
+    //边界条件
+    if(root==nullptr)
+        return 0;
+
+    int LD=getDepth(root->lchild);
+    int RD=getDepth(root->rchild);
+    return std::max(LD,RD)+1;
+}
+
+//判断是否是平衡二叉树(任意结点左右子树深度相差不超过1)
+bool isBalanced_1(BTNode* root)
+{
+    //边界条件
+    if(root==nullptr)
+        return true;
+    
+    int left_depth=getDepth(root->lchild);
+    int right_depth=getDepth(root->rchild);
+    //当差值大于1或者小于-1的时候，放回false
+    int diff=left_depth-right_depth;
+    if(diff>1||diff<-1)
+        return false;
+    
+    return isBalanced(root->lchild)&&isBalanced(root->rchild);
+    
+}
+
+bool isBalanced_2(BTNode* root,int* depth)
+{
+    //边界条件
+    if(root==nullptr)
+    {
+        *depth=0;
+        return true;
+    }
+    
+    //后序遍历，按照左右中的形式
+    int left_depth,right_depth;
+    if(isBalanced_2(root->lchild,&left_depth)&&isBalanced_1(root->rchild,&right_depth))
+    {
+        int diff=left_depth-right_depth;
+        if(diff<=1&&diff>=-1)
+        {
+            *depth=1+std::max(left_depth,right_depth);
+            return true;
+        }
+    }
+        
+    return false;
+}
+```
+
+
 ## Ⅱ.平衡调整
 平衡二叉树最重要的就是平衡调整了。这里首先说一下一个概念：失去平衡的最小子树。
 
