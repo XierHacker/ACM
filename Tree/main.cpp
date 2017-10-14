@@ -53,5 +53,9 @@ int main()
 
     //层次遍历测试
     level_traversal(root);
+
+    //翻转二叉树测试
+    tree_mirror(root);
+    level_traversal(root); //层次遍历
     return 0;
 }

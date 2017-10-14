@@ -39,4 +39,9 @@ BTNode* copyTree(BTNode* root);
 
 //通过前序遍历和中序遍历来创建一颗树
 BTNode* construct_tree(std::string& PreOrder,std::string& InOrder);
+
+//翻转二叉树
+void tree_mirror(BTNode* root);
+
+
 #endif // BINARY_TREE_H_

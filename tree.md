@@ -411,6 +411,28 @@ BTNode* construct_tree(std::string& PreOrder,std::string& InOrder)
 
 二叉树镜像的规律也很简单。先前序遍历这棵树的每个节点，要是遍历到的节点有子节点，就交换他的两个子节点，
 当交换完所有**非叶节点**的左右子节点后，就得到了树的镜像。
+```c++
+//翻转二叉树
+void tree_mirror(BTNode* root)
+{
+    //边界判断
+    if(root==nullptr)
+        return ;
+    if(root->lchild==nullptr && root->rchild==nullptr)  //没有左右孩子
+        return ;
+
+    //交换左右孩子
+    std::swap(root->lchild,root->rchild);
+
+    //对于左孩子递归使用反转函数
+    if(root->lchild)
+        tree_mirror(root->lchild);
+
+    //对于右孩子递归使用翻转函数
+    if(root->rchild)
+        tree_mirror(root->rchild);
+}
+```
 
 
 Ⅵ

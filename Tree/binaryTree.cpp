@@ -2,6 +2,7 @@
 #include <stack>
 #include <string>
 #include <deque>
+#include <algorithm>
 #include "binaryTree.h"
 
 //创建一个二叉树例子,返回根节点地址
@@ -293,5 +294,26 @@ BTNode* construct_tree(std::string& PreOrder,std::string& InOrder)
     return construct_core(PreOrder.begin(),PreOrder.end()-1,InOrder.begin(),InOrder.end()-1);
 }
 
+
+//翻转二叉树
+void tree_mirror(BTNode* root)
+{
+    //边界判断
+    if(root==nullptr)
+        return ;
+    if(root->lchild==nullptr && root->rchild==nullptr)  //没有左右孩子
+        return ;
+
+    //交换左右孩子
+    std::swap(root->lchild,root->rchild);
+
+    //对于左孩子递归使用反转函数
+    if(root->lchild)
+        tree_mirror(root->lchild);
+
+    //对于右孩子递归使用翻转函数
+    if(root->rchild)
+        tree_mirror(root->rchild);
+}
 
 
