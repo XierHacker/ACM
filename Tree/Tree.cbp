@@ -32,6 +32,10 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="AVL.cpp" />
+		<Unit filename="AVL.h" />
+		<Unit filename="binarySearchTree.cpp" />
+		<Unit filename="binarySearchTree.h" />
 		<Unit filename="binaryTree.cpp" />
 		<Unit filename="binaryTree.h" />
 		<Unit filename="main.cpp" />
