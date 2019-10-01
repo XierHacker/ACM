@@ -12,126 +12,96 @@ struct ListNode
 
 最基本的单链表的操作就是创建一个单链表了,这里假设我们有一个数组,我们想要通过这个数组建立单链表
 ```c++
-//根据已经有的数组创建链表,并且返回头结点地址
-//type=0,表示尾插法.type=1,表示头插法
-ListNode* createList(const std::vector<int>& v,int type)
-{
-    switch(type)
-    {
+//根据已经有的数组创建链表,并且返回头结点地址,type=0,表示尾插法.type=1,表示头插法
+ListNode *CreateListFromVector(const std::vector<int> &v, int type) {
+    if (v.empty()) { return nullptr; }
+    switch (type) {
         //尾插法
-        case 0:
-            {
-                //创建头结点和一些必要的指针
-                ListNode* head=new ListNode;
-                head->next=nullptr;
-                
-                ListNode* r=head;    //r指向头结点,因为此时头结点就是终端节点,且r不断变化
-
-                //遍历vector创建链表
-                for(int i=0;i<v.size();i++)
-                {
-                    ListNode* s=new ListNode;
-                    s->value=v[i];
-                    r->next=s;  //
-                    r=s;
-                }
-                r->next=nullptr;
-
-                return head;
+        case 0: {
+            ListNode *head = new ListNode;
+            head->next_node = nullptr;
+            ListNode *r = head; //r指向头结点,因为此时头结点就是终端节点,且r不断变化
+            //遍历vector创建链表
+            for (int i = 0; i < v.size(); i++) {
+                ListNode *temp_node = new ListNode;
+                temp_node->value = v[i];
+                r->next_node = temp_node;
+                r = temp_node;
             }
-
+            r->next_node = nullptr;
+            return head;
+        }
         //头插法
-        case 1:
+        case 1: {
+            ListNode *head = new ListNode;
+            head->next_node = nullptr;
+            for(int i=0;i<v.size();i++)
             {
-                //创建头结点和一些必要的指针
-                ListNode *head=new ListNode;
-                head->next=nullptr;
-
-                for(int i=0;i<v.size();i++)
-                {
-                    ListNode* s=new ListNode;
-                    s->value=v[i];
-                    s->next=head->next;
-                    head->next=s;
-                }
-                return head;
+                ListNode* temp_node=new ListNode;
+                temp_node->value=v[i];
+                temp_node->next_node=head->next_node;
+                head->next_node=temp_node;
             }
+            return head;
+        }
     }
 }
 
 ```
 
-建立起一个链表之后,我们很常用的一个操作就是在链表后面插入一个元素,
-思路也很简单,遍历到链表最后,插入就行了.
+建立起一个链表之后,我们很常用的一个操作就是在链表后面插入一个元素,思路也很简单,遍历到链表最后,插入就行了.
 ```c++
-//尾部插入一个元素(头结点有可能改变)
-void addToTail(ListNode* &head,int value)
-{
-    //为新值创建空间
-    ListNode* s=new ListNode;
-    s->value=value;
-    s->next=nullptr;
+//链表尾部插入元素,其中头结点有可能改变
+bool AddToTail(ListNode* &head,int value){
+    ListNode* new_node=new ListNode;
+    new_node->value=value;
+    new_node->next_node= nullptr;
 
-    //如果头结点本身就是空值
-    if(head==nullptr)
-    {
-        head=s;
+    //要是头节点本身是个nullptr
+    if(head== nullptr){
+        head=new_node;
+        return true;
     }
-    else
-    {
-        ListNode* r=head;
-        //往下遍历
-        while(r->next!=nullptr)
-        {
-            r=r->next;
-        }
-        r->next=s;
+    ListNode* temp_node=head;
+    while(temp_node->next_node!= nullptr){
+        temp_node=temp_node->next_node;
     }
+    temp_node->next_node=new_node;
+    return true;
 }
 ```
 
 然后就是在链表中查找某个元素了.我们这里给出一个实现,能够找到元素的前一个位置
 这么做的原因,是因为我们一般查找之后还有其他的操作,这样做方便很多.
 ```c++
-//找到某个值,返回第一次出现的前一个节点地址
-ListNode* find_value(ListNode* head,int value)
-{
-    //判断head是否是空
-    if(head==nullptr)
-    {
-        return nullptr;
-    }
-
-    ListNode* r=head;
-    while(r->next!=nullptr)
-    {
-        if(r->next->value==value)
-        {
-            return r;
+//查找链表中某个元素,并且返回这个元素的前一个元素的地址，要是找不到，返回nullptr
+ListNode* FindValue(ListNode* head,int value){
+    if(head== nullptr){return nullptr;}
+    ListNode* temp_node=head;
+    while(temp_node->next_node!= nullptr){
+        if(temp_node->next_node->value==value){
+            return temp_node;
         }
-        r=r->next;
+        temp_node=temp_node->next_node;
     }
     return nullptr;
 }
 ```
+
 有了插入操作,就有删除操作,怎么删除某个值的节点呢?这个时候,首先就需要用到我们前面说的查找
 的方式,查找可以知道某个值是不是在链表中,它的位置是在哪里.(这个时候就体现了返回前一个位置的优越性了)
 ```c++
-//删除某个值,并且返回是否成功
-bool remove_value(ListNode* head,int value)
-{
-    //先找到某个值
-    ListNode* p=find_value(head,value);
-    //值不存在
-    if(p==nullptr)
-        return false;
-    else
-    {
-        ListNode* r=p->next;
-        p->next=p->next->next;
-        delete r;
-        return true;
-    }
+//删除链表中某个元素,删除成功返回true,否则返回false
+bool DeleteValue(ListNode *head, int value) {
+    if (head == nullptr) { return false; }
+    ListNode *prev_node = FindValue(head, value);
+    if (prev_node == nullptr) { return false; }
+
+    //delete node
+    ListNode* temp_node=prev_node->next_node;
+    prev_node->next_node=prev_node->next_node->next_node;
+    delete temp_node;
+    return true;
 }
 ```
 
