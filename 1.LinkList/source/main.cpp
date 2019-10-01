@@ -28,11 +28,15 @@ int main() {
 
     //删除元素
     if (DeleteValue(head, 5)) {
-        std::cout << "delete done:" << std::endl;
+        std::cout << "delete done:";
         DisplayLinkList(head);
     } else {
         std::cout << "delete Fail" << std::endl;
     }
+
+    //反向打印链表
+    ReverseTraversal(head);
+
 
 
     return 0;

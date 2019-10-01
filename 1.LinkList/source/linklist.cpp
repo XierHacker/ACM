@@ -3,6 +3,9 @@
 //
 
 #include "linklist.h"
+#include <iostream>
+#include <vector>
+#include <stack>
 
 //根据已经有的数组创建链表,并且返回头结点地址
 ListNode *CreateListFromVector(const std::vector<int> &v, int type) {
@@ -79,10 +82,29 @@ bool DeleteValue(ListNode *head, int value) {
     if (prev_node == nullptr) { return false; }
 
     //delete node
-    ListNode* temp_node=prev_node->next_node;
-    prev_node->next_node=prev_node->next_node->next_node;
+    ListNode *temp_node = prev_node->next_node;
+    prev_node->next_node = prev_node->next_node->next_node;
     delete temp_node;
     return true;
+}
+
+//反向打印链表
+void ReverseTraversal(ListNode *head) {
+    if (head == nullptr || head->next_node == nullptr) { return; }
+    std::stack<ListNode *> storage;
+    ListNode *temp_node = head->next_node;
+    while (temp_node->next_node != nullptr) {
+        storage.push(temp_node);
+        temp_node = temp_node->next_node;
+
+    }
+    std::cout << "Reverse Traversal:";
+    while (!storage.empty()) {
+        temp_node = storage.top();        //获得最上面元素
+        std::cout << temp_node->value << " ";
+        storage.pop();                  //弹出元素
+    }
+    std::cout << std::endl;
 }
 
 

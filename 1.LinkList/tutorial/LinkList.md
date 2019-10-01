@@ -115,29 +115,23 @@ bool DeleteValue(ListNode *head, int value) {
 利用栈**先进后出**的性质来做就行了.
 ```c++
 //从尾到头打印链表(反向遍历)
-void reverse_traversal(ListNode* head)
-{
-    //判断为空
-    if(head==nullptr||head->next==nullptr)
-        return ;
-    std::stack<ListNode*> nodes;
-    //因为头结点不存储元素
-    ListNode* r=head->next;
-    //往stack里面存节点地址
-    while(r!=nullptr)
-    {
-        nodes.push(r);
-        r=r->next;
-    }
+//反向打印链表
+void ReverseTraversal(ListNode *head) {
+    if (head == nullptr || head->next_node == nullptr) { return; }
+    std::stack<ListNode *> storage;
+    ListNode *temp_node = head->next_node;
+    while (temp_node->next_node != nullptr) {
+        storage.push(temp_node);
+        temp_node = temp_node->next_node;
 
-    //打印
-    while(!nodes.empty())
-    {
-        r=nodes.top();
-        std::cout<<r->value<<" ";
-        nodes.pop();
     }
-    std::cout<<std::endl;
+    std::cout << "Reverse Traversal:";
+    while (!storage.empty()) {
+        temp_node = storage.top();        //获得最上面元素
+        std::cout << temp_node->value << " ";
+        storage.pop();                  //弹出元素
+    }
+    std::cout << std::endl;
 }
 ```
 
