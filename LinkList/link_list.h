@@ -10,39 +10,39 @@ struct ListNode
     ListNode* next;
 };
 
-//¸ù¾İÒÑ¾­ÓĞµÄÊı×é´´½¨Á´±í,²¢ÇÒ·µ»ØÍ·½áµãµØÖ·
+//æ ¹æ®å·²ç»æœ‰çš„æ•°ç»„åˆ›å»ºé“¾è¡¨,å¹¶ä¸”è¿”å›å¤´ç»“ç‚¹åœ°å€
 ListNode* createList(const std::vector<int>& v,int type);
 
-//±éÀúÁ´±í
+//éå†é“¾è¡¨
 int traversal(ListNode* head);
 
-//´ÓÎ²µ½Í·´òÓ¡Á´±í
+//ä»å°¾åˆ°å¤´æ‰“å°é“¾è¡¨
 void reverse_traversal(ListNode* head);
 
-//Î²²¿²åÈëÒ»¸öÔªËØ
+//å°¾éƒ¨æ’å…¥ä¸€ä¸ªå…ƒç´ 
 void addToTail(ListNode* &head,int value);
 
-//ÕÒµ½Ä³¸öÖµ,·µ»ØµÚÒ»´Î³öÏÖµÄµØÖ·
+//æ‰¾åˆ°æŸä¸ªå€¼,è¿”å›ç¬¬ä¸€æ¬¡å‡ºç°çš„åœ°å€
 ListNode* find_value(ListNode* head,int value);
 
 
-//É¾³ıÄ³¸öÖµ,²¢ÇÒ·µ»ØÊÇ·ñ³É¹¦
+//åˆ é™¤æŸä¸ªå€¼,å¹¶ä¸”è¿”å›æ˜¯å¦æˆåŠŸ
 bool remove_value(ListNode* head,int value);
 
 
-//µÚK¸ö½Úµã
+//ç¬¬Kä¸ªèŠ‚ç‚¹
 ListNode* k_th_node(ListNode* head,int k);
 
-//µ¹ÊıµÚK¸ö½Úµã
+//å€’æ•°ç¬¬Kä¸ªèŠ‚ç‚¹
 ListNode* re_k_th_node(ListNode* head,int k);
 
-//·´×ªÁ´±í,²¢ÇÒ·µ»ØĞÂµÄÍ·½áµãµØÖ·
+//åè½¬é“¾è¡¨,å¹¶ä¸”è¿”å›æ–°çš„å¤´ç»“ç‚¹åœ°å€
 ListNode* reverseList(ListNode* head);
 
-//ºÏ²¢Á½¸öÓĞĞòÁ´±í
+//åˆå¹¶ä¸¤ä¸ªæœ‰åºé“¾è¡¨
 ListNode* mergeList(ListNode* head1,ListNode* head2);
 
-//ÅĞ¶ÏÁ´±íÊÇ·ñÓĞ»·
+//åˆ¤æ–­é“¾è¡¨æ˜¯å¦æœ‰ç¯
 bool hasCircle(ListNode* head);
 #endif // LINK_LIST_H_
 
