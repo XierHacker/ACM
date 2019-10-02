@@ -4,29 +4,29 @@
 #include <string>
 #include "binarySearchTree.h"
 
-//¶þ²æËÑË÷Ê÷×ªË«ÏòÁ´±í£¬²¢ÇÒ·µ»ØÍ·½áµã
-//¶þ²æËÑË÷Ê÷½áµãÖ®¼äµÄ×ª»»
+//äºŒå‰æœç´¢æ ‘è½¬åŒå‘é“¾è¡¨ï¼Œå¹¶ä¸”è¿”å›žå¤´ç»“ç‚¹
+//äºŒå‰æœç´¢æ ‘ç»“ç‚¹ä¹‹é—´çš„è½¬æ¢
 void convertNode(BSTNode* root,BSTNode** LastNodeInList)
 {
-    //¶þ²æËÑË÷Ê÷£¬×¢¶¨²ÉÓÃÖÐÐò±éÀú
-    //±ß½çÅÐ¶Ï
+    //äºŒå‰æœç´¢æ ‘ï¼Œæ³¨å®šé‡‡ç”¨ä¸­åºéåŽ†
+    //è¾¹ç•Œåˆ¤æ–­
     if(root==nullptr)
         return nullptr;
 
-    //ÉèÁ¢Ò»¸öÖ¸ÕëÖ¸Ïòµ±Ç°½Úµã
+    //è®¾ç«‹ä¸€ä¸ªæŒ‡é’ˆæŒ‡å‘å½“å‰èŠ‚ç‚¹
     BSTNode* current=root;
 
-    //×ó
+    //å·¦
     if(current->lchild!=nullptr)
         convertNode(current->lchild,LastNodeInList);
 
-    //ÖÐ
+    //ä¸­
     current->lchild=*LastNodeInList;
     if(*LastNodeInList!=nullptr)
         (*LastNodeInList)->rchild=current;
     *LastNodeInList=current;
 
-    //ÓÒ
+    //å³
     if(current->rchild!=nullptr)
         convertNode(current->rchild,LastNodeInList);
 }
@@ -36,7 +36,7 @@ BSTNode* convertToList(BSTNode* root)
     BSTNode* LastNodeInList=nullptr;
     convertNode(root,&LastNodeInList);
 
-    //´´½¨Ò»¸öÍ·½áµã
+    //åˆ›å»ºä¸€ä¸ªå¤´ç»“ç‚¹
     BSTNode* head=LastNodeInList;
     while(head!=nullptr&&head->lchild!=nullptr)
     {

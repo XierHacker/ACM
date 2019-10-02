@@ -9,7 +9,7 @@ struct BSTNode
     BTNode* rchild;
 };
 
-//二叉搜索树转双向链表
+//浜屽弶鎼滅储鏍戣浆鍙屽悜閾捐〃
 BSTNode* convertToList(BSTNode* root);
 
 #endif // BINARY_SEARCH_TREE_H_
