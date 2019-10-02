@@ -30,8 +30,11 @@ bool DeleteValue(ListNode *head, int value);
 //反向打印链表
 void ReverseTraversal(ListNode *head);
 
+//翻转链表
+ListNode *ReverseList(ListNode *head);
+
 //链表整数相加
-ListNode* AddTwoNumbers(ListNode* head1,ListNode* head2);
+ListNode *AddTwoNumbers(ListNode *head1, ListNode *head2);
 
 
 //打印链表内容

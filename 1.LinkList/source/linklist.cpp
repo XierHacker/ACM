@@ -26,7 +26,7 @@ ListNode *CreateListFromVector(const std::vector<int> &v, int type) {
             r->next_node = nullptr;
             return head;
         }
-        //头插法
+            //头插法
         case 1: {
             ListNode *head = new ListNode;
             head->next_node = nullptr;
@@ -107,39 +107,55 @@ void ReverseTraversal(ListNode *head) {
     std::cout << std::endl;
 }
 
+//翻转链表
+ListNode *ReverseList(ListNode *head) {
+    if (head == nullptr) { return nullptr; }
+    ListNode *new_head = new ListNode;
+    ListNode *temp_node = head->next_node;
+    ListNode *prev_node = nullptr;
+    while (temp_node != nullptr) {
+        ListNode *storage_next = temp_node->next_node;
+        if (temp_node->next_node == nullptr) { new_head = temp_node; }
+        //指向上一个节点
+        temp_node->next_node = prev_node;
 
-//链表整数相加
-ListNode* AddTwoNumbers(ListNode* head1,ListNode* head2){
-    if((head1== nullptr)&&(head2== nullptr)){return nullptr;}
-    ListNode* new_head=new ListNode;
-    new_head->next_node= nullptr;
-    ListNode* temp1=head1->next_node;
-    ListNode* temp2=head2->next_node;
-    int d=0;        //进位
-    while(temp1||temp2||d){
-        int sum=0;
-        //求和
-        sum+=(temp1?temp1->value:0);
-        sum+=(temp2?temp2->value:0);
-        sum+=d;
-        d=sum/10;
-        sum%=10;
-
-        //头插法创建链表
-        ListNode* new_temp=new ListNode;
-        new_temp->value=sum;
-        new_temp->next_node=new_head->next_node;
-        new_head->next_node=new_temp;
-
-        //记得转移到下一个节点,不然死循环
-        temp1=temp1?temp1->next_node: nullptr;
-        temp2=temp2?temp2->next_node: nullptr;
+        //更新
+        prev_node = temp_node;
+        temp_node = storage_next;
     }
     return new_head;
 }
 
 
+//链表整数相加
+ListNode *AddTwoNumbers(ListNode *head1, ListNode *head2) {
+    if ((head1 == nullptr) && (head2 == nullptr)) { return nullptr; }
+    ListNode *new_head = new ListNode;
+    new_head->next_node = nullptr;
+    ListNode *temp1 = head1->next_node;
+    ListNode *temp2 = head2->next_node;
+    int d = 0;        //进位
+    while (temp1 || temp2 || d) {
+        int sum = 0;
+        //求和
+        sum += (temp1 ? temp1->value : 0);
+        sum += (temp2 ? temp2->value : 0);
+        sum += d;
+        d = sum / 10;
+        sum %= 10;
 
+        //头插法创建链表
+        ListNode *new_temp = new ListNode;
+        new_temp->value = sum;
+        new_temp->next_node = new_head->next_node;
+        new_head->next_node = new_temp;
+
+        //记得转移到下一个节点,不然死循环
+        temp1 = temp1 ? temp1->next_node : nullptr;
+        temp2 = temp2 ? temp2->next_node : nullptr;
+    }
+    return new_head;
+}
 
 
 bool DisplayLinkList(const ListNode *head) {
