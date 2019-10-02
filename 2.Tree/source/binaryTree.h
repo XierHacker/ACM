@@ -12,7 +12,7 @@ struct BTNode
 
 
 //创建一个二叉树例子,返回根节点地址
-BTNode* example();
+BTNode* CreateExample();
 
 //先序遍历二叉树
 void pre_order(BTNode* root);

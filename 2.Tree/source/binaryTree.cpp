@@ -17,11 +17,11 @@ BTNode* example()
     p5=new BTNode;
 
     //写入结点内容
-    p1->value='A';
-    p2->value='B';
-    p3->value='C';
-    p4->value='D';
-    p5->value='E';
+    p1->value=1;
+    p2->value=2;
+    p3->value=3;
+    p4->value=4;
+    p5->value=5;
 
     p1->lchild=p2;
     p1->rchild=p3;
