@@ -38,6 +38,19 @@ int main() {
     ReverseTraversal(head);
 
 
+    //两个整数相加
+    std::vector<int> num1 = {1, 2, 3, 4, 5, 6, 7};
+    ListNode *head1 = CreateListFromVector(num1, 1);
+    std::cout<<"head1:";
+    DisplayLinkList(head1);
+    std::vector<int> num2 = {1, 2, 3, 4, 5, 6, 7,8,9};
+    ListNode *head2 = CreateListFromVector(num2, 1);
+    std::cout<<"head2:";
+    DisplayLinkList(head2);
+
+    ListNode* added_node=AddTwoNumbers(head1,head2);
+    std::cout<<"after tow number added"<<std::endl;
+    DisplayLinkList(added_node);
 
     return 0;
 }

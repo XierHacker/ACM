@@ -263,4 +263,48 @@ ListNode* mergeList(ListNode* head1,ListNode* head2)
 
 >快指针pf(f就是fast的缩写)每次移动2个节点，慢指针ps(s为slow的缩写)每次移动1个节点，如果快指针能够追上慢指针，那就说明其中有一个环，否则不存在环。
 这个方法的时间复杂度为O(n)，空间复杂度为O(1)，实际使用两个指针。
+>
+
+## 4.7 链表求和
+用单链表来表示一个整数，最高位为最后一个节点。写出两个整数相加的的方法,并且返回这个新链表头（两个链表倒叙求和）
+```asm
+输入：(2 -> 4 -> 3) + (5 -> 6 -> 4)
+输出：7 -> 0 -> 8
+原因：342 + 465 = 807
+```
+代码如下:
+```c++
+//链表整数相加
+ListNode* AddTwoNumbers(ListNode* head1,ListNode* head2){
+    if((head1== nullptr)&&(head2== nullptr)){return nullptr;}
+    ListNode* new_head=new ListNode;
+    new_head->next_node= nullptr;
+    ListNode* temp1=head1->next_node;
+    ListNode* temp2=head2->next_node;
+    int d=0;        //进位
+    while(temp1||temp2||d){
+        int sum=0;
+        //求和
+        sum+=(temp1?temp1->value:0);
+        sum+=(temp2?temp2->value:0);
+        sum+=d;
+        d=sum/10;
+        sum%=10;
+
+        //头插法创建链表
+        ListNode* new_temp=new ListNode;
+        new_temp->value=sum;
+        new_temp->next_node=new_head->next_node;
+        new_head->next_node=new_temp;
+
+        //记得转移到下一个节点,不然死循环
+        temp1=temp1?temp1->next_node: nullptr;
+        temp2=temp2?temp2->next_node: nullptr;
+    }
+    return new_head;
+}
+```
+
+
+
 

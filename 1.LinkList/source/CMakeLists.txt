@@ -3,4 +3,4 @@ project(LinkList)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(link_list linklist.cpp main.cpp)
+add_executable(link_list main.cpp linklist.cpp double_linked_list.cpp double_linked_list.h)
