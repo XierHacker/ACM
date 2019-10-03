@@ -3,26 +3,30 @@
 
 using namespace std;
 
-int main()
-{
+int main() {
     //-----------------二叉树例子-------------------------
     //创建一个简单的二叉树例子
-    BTNode* root=CreateExample();
-    std::cout<<"root->value:"<<root->value<<std::endl;
-    std::cout<<"root->lchild->value:"<<root->lchild->value<<std::endl;
+    BTNode *root = CreateExample();
+    std::cout << "root->value:" << root->value << std::endl;
+    std::cout << "root->lchild->value:" << root->lchild->value << std::endl;
 
     //先序遍历测试
-    std::cout<<"PreOrder Traversal:";
+    std::cout << "PreOrder Traversal:";
     PreOrderTraversal(root);
-    std::cout<<std::endl;
+    std::cout << std::endl;
 
     //中序遍历测试
-    std::cout<<"InOrder Traversal With Recursive:";
+    std::cout << "InOrder Traversal With Recursive:";
     InOrderTraversal(root);
-    std::cout<<std::endl;
+    std::cout << std::endl;
 
 
     //中序遍历非递归
+
+    //层次遍历
+    std::cout << "Level Traversal:";
+    LevelTraversal(root);
+    std::cout << std::endl;
 
 
 

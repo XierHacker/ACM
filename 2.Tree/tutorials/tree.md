@@ -175,35 +175,18 @@ void post_order(BTNode* root)
 接下来从队列的头部取出节点，重复之前的操作。直到队列中所有节点都被遍历为止
 
 ```c++
-//逐层遍历二叉树
-void level_traversal(BTNode* root)
-{
-    //意外判断
-    if(root==nullptr)
-        return ;
-
-    //存储节点指针
-    std::deque<BTNode*> Queue;
-    Queue.push_back(root);
-
-    while(Queue.size())
-    {
-        BTNode* temp_Node=Queue.front();
-
-        //打印头部(相当于遍历过了)
-        std::cout<<temp_Node->value<<" ";
-        //弹出头部
-        Queue.pop_front();
-
-        //要是有左边的话，存储左边
-        if(temp_Node->lchild)
-            Queue.push_back(temp_Node->lchild);
-        //要是有右边的话，存储右边
-        if(temp_Node->rchild)
-            Queue.push_back(temp_Node->rchild);
+//层次遍历二叉树
+void LevelTraversal(BTNode *root) {
+    if (root == nullptr) { return; }
+    std::queue<BTNode *> node_queue;
+    node_queue.push(root);
+    while (!node_queue.empty()) {
+        BTNode *front_node = node_queue.front();      //取出队首
+        std::cout << front_node->value << " ";          //访问
+        if (front_node->lchild != nullptr) { node_queue.push(front_node->lchild); }
+        if (front_node->rchild != nullptr) { node_queue.push(front_node->rchild); }
+        node_queue.pop();                           //弹出队首
     }
-    std::cout<<std::endl;
-
 }
 ```
 
