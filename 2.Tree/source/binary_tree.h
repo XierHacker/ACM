@@ -5,6 +5,8 @@
 #ifndef TREE_BINARY_TREE_H
 #define TREE_BINARY_TREE_H
 
+#include <vector>
+
 struct BTNode {
     int value;
     BTNode *lchild;
@@ -35,7 +37,11 @@ void CountLeaf(BTNode* root,int& num);
 int CountTreeDepth(BTNode* root);
 
 
+//找树上面和为某个值的所有路径
+void FindPathEqualToSum(BTNode* root,std::vector<int> path,int expected_sum,int current_sum);
 
+//输出指定节点到另外一个节点的路径
+void FindPathBetweenNodes(BTNode* node1,BTNode* node2,std::vector<int> path);
 
 
 #endif //TREE_BINARY_TREE_H

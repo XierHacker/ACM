@@ -102,3 +102,49 @@ int CountTreeDepth(BTNode* root){
     int RD=CountTreeDepth(root->rchild);
     return std::max(LD,RD)+1;
 }
+
+
+//找树上面和为某个值的所有路径,先序遍历
+void FindPathEqualToSum(BTNode* root,std::vector<int> path,int expected_sum,int current_sum){
+    if(root== nullptr)  {return ;}
+    path.push_back(root->value);
+    current_sum+=root->value;
+    //要是叶子节点同时和为expected_sum,就输出
+    if((root->lchild== nullptr&&root->rchild== nullptr)&&(current_sum==expected_sum))
+    {
+        for(int i=0;i<path.size();i++)
+        {
+            std::cout<<path[i]<<" ";
+        }
+        std::cout<<std::endl;
+    }
+
+    //要是不是叶子节点,就遍历相应的子节点
+    if(root->lchild!= nullptr)  {FindPathEqualToSum(root->lchild,path,expected_sum,current_sum);}
+    if(root->rchild!= nullptr)  {FindPathEqualToSum(root->rchild,path,expected_sum,current_sum);}
+
+    //回到父节点之前，路经上删除当前节点
+    path.pop_back();
+}
+
+//输出指定节点到另外一个节点的路径,先序遍历
+void FindPathBetweenNodes(BTNode* node1,BTNode* node2,std::vector<int> path){
+    if((node1== nullptr)||(node2== nullptr))    {return ;}
+    path.push_back(node1->value);
+    //两个节点相遇
+    if(node1==node2)
+    {
+        for(int i=0;i<path.size();i++)
+        {
+            std::cout<<path[i]<<" ";
+        }
+        std::cout<<std::endl;
+    }
+
+    //往下继续遍历
+    if(node1->lchild!= nullptr) {FindPathBetweenNodes(node1->lchild,node2,path);}   //左子树
+    if(node1->rchild!= nullptr) {FindPathBetweenNodes(node1->rchild,node2,path);}   //右子树
+
+    //回到父节点之前，路经上删除当前节点
+    path.pop_back();
+}

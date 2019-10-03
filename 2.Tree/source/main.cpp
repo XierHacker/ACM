@@ -41,6 +41,14 @@ int main() {
     //计算树的深度
     std::cout<<"Tree Depth:"<<CountTreeDepth(root)<<std::endl;
 
+    //找树上面和为某个值的所有路径
+    std::vector<int> path;
+    FindPathEqualToSum(root,path,7,0);
+
+    //
+    std::vector<int> path2;
+    FindPathBetweenNodes(root,root->rchild->lchild,path2);
+
 
 
 
