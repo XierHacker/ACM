@@ -28,4 +28,14 @@ void PostOrderTraversal(BTNode *root);
 //层次遍历二叉树
 void LevelTraversal(BTNode *root);
 
+//计算叶子节点数目
+void CountLeaf(BTNode* root,int& num);
+
+//计算树的深度
+int CountTreeDepth(BTNode* root);
+
+
+
+
+
 #endif //TREE_BINARY_TREE_H

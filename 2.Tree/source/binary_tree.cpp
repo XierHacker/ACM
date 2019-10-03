@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <queue>
+#include <algorithm>
 
 //创建一个二叉树例子,返回根节点地址
 BTNode *CreateExample() {
@@ -83,4 +84,21 @@ void LevelTraversal(BTNode *root) {
         if (front_node->rchild != nullptr) { node_queue.push(front_node->rchild); }
         node_queue.pop();                           //弹出队首
     }
+}
+
+
+//计算叶子节点数目,先序遍历
+void CountLeaf(BTNode* root,int& num){
+    if(root== nullptr) {return ;}
+    if((root->lchild== nullptr)&&(root->rchild== nullptr)) {num+=1;}
+    CountLeaf(root->lchild,num);
+    CountLeaf(root->rchild,num);
+}
+
+//计算树的深度
+int CountTreeDepth(BTNode* root){
+    if(root== nullptr)  {return 0;}
+    int LD=CountTreeDepth(root->lchild);
+    int RD=CountTreeDepth(root->rchild);
+    return std::max(LD,RD)+1;
 }

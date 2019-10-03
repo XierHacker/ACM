@@ -28,6 +28,19 @@ int main() {
     LevelTraversal(root);
     std::cout << std::endl;
 
+    //计算整棵树的叶节点数量
+    int num=0;
+    CountLeaf(root,num);
+    std::cout<<"num_leaf of whole tree:"<<num<<std::endl;
+
+    //计算左子树的叶节点数量
+    int num2=0;
+    CountLeaf(root->lchild,num2);
+    std::cout<<"num_leaf of left child tree:"<<num2<<std::endl;
+
+    //计算树的深度
+    std::cout<<"Tree Depth:"<<CountTreeDepth(root)<<std::endl;
+
 
 
 
