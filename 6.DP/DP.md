@@ -1,8 +1,31 @@
 # 一.动态规划概念
 ## 前导技能
->**递归**，
+- **递归**，
+- **暴力搜索**
 
->**暴力搜索**
+https://cloud.tencent.com/developer/article/1406947
+https://www.jianshu.com/p/56749e928d2b
+https://blog.csdn.net/liukcqu/article/details/81545845
+
+https://www.jianshu.com/p/600428224e04
+https://blog.csdn.net/zhoubin1992/article/details/45201199
+https://blog.csdn.net/ns_code/article/details/20227303
+https://www.cnblogs.com/dudududu/p/8567883.html
+https://blog.csdn.net/qq_40795475/article/details/89592082
+https://www.cnblogs.com/simplepaul/p/7702655.html
+https://www.nowcoder.com/discuss/95737
+
+
+https://blog.csdn.net/charles_r_chiu/article/details/48227281
+https://segmentfault.com/a/1190000003745529
+https://github.com/huihut/interview#-cc
+https://blog.csdn.net/wangruitao1991/article/details/51678815
+https://www.cnblogs.com/ALINGMAOMAO/p/9884527.html
+https://www.cnblogs.com/daoluanxiaozi/archive/2012/03/29/2423087.html
+https://blog.csdn.net/qq508618087/article/details/52694720
+
+
+
 
 ## 套路
 一般看到**最优**，**最大**，**最小**，**最长**，**计数**这些字眼或者这些类型的题目。要是暴力方法解决不了，
@@ -10,40 +33,29 @@
 
 # 二.常见例题/模板
 
+### 例题1(leetcode 121买卖股票的最佳时机)
+```c++
+class Solution {
+public:
+    int search(int index,std::vector<int>& prices){
+        if(index==prices.size())  {return 0;}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        //选择一个最小的买和一个最大的卖,index表示买入时间
+        int max=0;
+        for(int i=index+1;i<prices.size();i++){
+            if(prices[i]>max)  {max=prices[i];}
+        }
+        int a=max-prices[index]>0?max-prices[index]:0;
+        int b=search(index+1,prices);
+        return std::max(a,b);
+    }
+    
+    int maxProfit(vector<int>& prices) {
+        int result=search(0,prices);
+        return result;
+    }
+};
+```
 
 
 ## 例题１(leetcode 198.House Robber)
