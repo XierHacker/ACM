@@ -43,5 +43,8 @@ void FindPathEqualToSum(BTNode* root,std::vector<int> path,int expected_sum,int 
 //输出指定节点到另外一个节点的路径
 void FindPathBetweenNodes(BTNode* node1,BTNode* node2,std::vector<int> path);
 
+//输出最大的和的路径
+void FindPathWithMaxSum(BTNode* node1,BTNode* node2,std::vector<int> path,int& max_sum);
+
 
 #endif //TREE_BINARY_TREE_H

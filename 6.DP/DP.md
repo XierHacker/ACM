@@ -9,21 +9,44 @@
 就可以试试动态规划了。
 
 # 二.常见例题/模板
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## 例题１(leetcode 198.House Robber)
-You are a professional robber planning to rob houses
-along a street.
-
-Each house has a certain amount of money stashed, the
-only constraint stopping you from robbing each of them
-is that **adjacent houses** have security system connected
-and it will automatically contact the police
-**if two adjacent houses** were broken into on the same night.
-
-Given a list of non-negative integers representing the amount
-of money of each house, determine the maximum amount of money
-you can rob tonight without alerting the police.
-
-
 思考：题目意思很简单，就是相当于一个数组，数组中有数值，你可以从数组中取值，
 但是两个值不能够是相邻的，怎么取，使得取得的值最多。
 
