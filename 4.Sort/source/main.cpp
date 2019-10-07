@@ -49,24 +49,25 @@ void show(const std::vector<int>& v)
 int main()
 {
     //构造出一个vector出来
-    vector<int> v={1,2,5,6,4,3,9,11,24,0,8,43,42,22};
+    vector<int> v={0,49,38,65,97,76,13,27,49};
 
-    //选择排序测试
-    auto v1=select_sort(v);
-    show(v1);
+//    //选择排序测试
+//    auto v1=select_sort(v);
+//    show(v1);
+//
+//    //冒泡排序测试
+//    auto v2=bubble_sort(v);
+//    show(v2);
 
-    //冒泡排序测试
-    auto v2=bubble_sort(v);
-    show(v2);
-
-    //快速排序测试
-    auto v3=v;
-    quick_sort(v3,0,v3.size()-1);
-    show(v3);
-
-    //插入排序测试
-    auto v4=insert_sort(v);
-    show(v4);
+//    //快速排序测试
+//    auto v3=v;
+//    quick_sort(v3,0,v3.size()-1);
+//    show(v3);
+//
+//    //插入排序测试
+//    auto v4=insert_sort(v);
+//    show(v4);
+    heap_sort(v);
     return 0;
 }
 

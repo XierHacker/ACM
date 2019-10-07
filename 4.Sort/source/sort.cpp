@@ -32,6 +32,9 @@ void buildHeap()
 std::vector<int> heap_sort(const std::vector<int>& v)
 {
     auto temp=v;
+    std::cout<<"v[1]'s left child:"<<v[2]<<std::endl;
+    std::cout<<"v[2]'s left child:"<<v[4]<<std::endl;
+
 }
 
 
@@ -69,47 +72,32 @@ std::vector<int> bubble_sort(const std::vector<int>& v)
 //快速排序
 void quick_sort(std::vector<int>& v,int left,int right) //对从v[left]到v[right]的元素进行排序
 {
+    //边界条件
+    if(left>=right) {return ;}
+
     int temp;
     int i=left,j=right;
-
-    //边界条件
-    if(left>=right)
-        return ;
-    else
+    temp=v[left];
+    while(i<j)
     {
-        temp=v[left];
-        while(i!=j)
+        while((i<j)&&(v[j]>=temp))   {--j;}   //从右边往左边扫描找到一个小于temp的元素
+        if(i<j)         //这里很重要的一点就是随时保证i<j这个大小关系
         {
-            //从右边往左边扫描找到一个小于temp的元素
-            //这里很重要的一点就是随时保证i<j这个大小关系
-            while((i<j)&&(v[j]>temp))
-                --j;
-
-            if(i<j)
-            {
-                //把v[j]放到左边去了
-                v[i]=v[j];
-                ++i;
-            }
-
-            //从左边往右边扫描找到一个大于temp的元素
-            //这里很重要的一点就是随时保证i<j这个大小关系
-            while((i<j)&&(v[i]<temp))
-                ++i;
-
-            if(i<j)
-            {
-                //把v[i]放到右边去了
-                v[j]=v[i];
-                --j;
-            }
+            v[i]=v[j];      //把v[j]放到左边去了
+            ++i;
         }
-
-        //这个时候i==j,跳出循环,并且把temp放在最终位置
-        v[i]=temp;
-        quick_sort(v,left,i-1);     //递归对temp左边的元素进行排序
-        quick_sort(v,i+1,right);    //递归对temp右边元素进行排序
+        while((i<j)&&(v[i]<temp))   {++i;}   //从左边往右边扫描找到一个大于temp的元素
+        if(i<j)          //这里很重要的一点就是随时保证i<j这个大小关系
+        {
+            v[j]=v[i];      //把v[i]放到右边去了
+            --j;
+        }
     }
+
+    //这个时候i==j,跳出循环,并且把temp放在最终位置
+    v[i]=temp;
+    quick_sort(v,left,i-1);     //递归对temp左边的元素进行排序
+    quick_sort(v,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    i+1,right);    //递归对temp右边元素进行排序
 }
 
 

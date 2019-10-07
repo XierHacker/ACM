@@ -98,54 +98,44 @@ std::vector<int> bubble_sort(const std::vector<int>& v)
     }
 }
 ```
+### 算法分析
+- 
+
+
 
 ## Ⅱ.快速排序
 代码:
 ```c++
 //快速排序
+//快速排序
 void quick_sort(std::vector<int>& v,int left,int right) //对从v[left]到v[right]的元素进行排序
 {
+    //边界条件
+    if(left>=right) {return ;}
+
     int temp;
     int i=left,j=right;
-
-    //边界条件
-    if(left>=right)
-        return ;
-    else
+    temp=v[left];
+    while(i<j)
     {
-        temp=v[left];
-        while(i!=j)
+        while((i<j)&&(v[j]>temp))   {--j;}   //从右边往左边扫描找到一个小于temp的元素
+        if(i<j)         //这里很重要的一点就是随时保证i<j这个大小关系
         {
-            //从右边往左边扫描找到一个小于temp的元素
-            //这里很重要的一点就是随时保证i<j这个大小关系
-            while((i<j)&&(v[j]>temp))
-                --j;
-
-            if(i<j)
-            {
-                //把v[j]放到左边去了
-                v[i]=v[j];
-                ++i;
-            }
-
-            //从左边往右边扫描找到一个大于temp的元素
-            //这里很重要的一点就是随时保证i<j这个大小关系
-            while((i<j)&&(v[i]<temp))
-                ++i;
-
-            if(i<j)
-            {
-                //把v[i]放到右边去了
-                v[j]=v[i];
-                --j;
-            }
+            v[i]=v[j];      //把v[j]放到左边去了
+            ++i;
         }
-
-        //这个时候i==j,跳出循环,并且把temp放在最终位置
-        v[i]=temp;
-        quick_sort(v,left,i-1);     //递归对temp左边的元素进行排序
-        quick_sort(v,i+1,right);    //递归对temp右边元素进行排序
+        while((i<j)&&(v[i]<temp))   {++i;}   //从左边往右边扫描找到一个大于temp的元素
+        if(i<j)          //这里很重要的一点就是随时保证i<j这个大小关系
+        {
+            v[j]=v[i];      //把v[i]放到右边去了
+            --j;
+        }
     }
+
+    //这个时候i==j,跳出循环,并且把temp放在最终位置
+    v[i]=temp;
+    quick_sort(v,left,i-1);     //递归对temp左边的元素进行排序
+    quick_sort(v,i+1,right);    //递归对temp右边元素进行排序
 }
 ```
 
@@ -165,7 +155,6 @@ std::vector<int> select_sort(const std::vector<int>& v)
     {
         //找无序中的最小值
         std::vector<int>::iterator min_itor=std::min_element(temp.begin()+i,temp.end());
-
         //把最小值与无序部分第一个元素(就是i索引的元素)交换
         std::swap(*min_itor,*(temp.begin()+i));
     }
@@ -185,6 +174,15 @@ std::vector<int> select_sort(const std::vector<int>& v)
 那么怎么能够从堆来排序呢?根据堆的定义知道,**代表堆的这棵完全二叉树的根节点的值是最大(或是最小的)**
 .所以**将一个无序序列调整为一个堆**,就可以找出这个序列的最大(最小)值,然后将找到的这个值交换到序列的最后(或者最前),
 这样有序序列元素增加一个,无序序列元素减少一个.不停的对新的无序序列重复这样的操作.就实现了排序.
+
+在更加具体地来讲堆排序之前,先要说一下完全二叉树的顺序存储方式,即用**数组来存储一个完全二叉树**.
+
+将完全二叉树中的结点按照编号依次放入一个一维数组里面,那么就完成了一棵完全二叉树的存储.
+比如一个节点的编号为`i`,要是`2i`不大于`n`,那么i的左孩子就存储在`[2*i]`的位置.
+
+
+
+
 
 
 Ⅲ
