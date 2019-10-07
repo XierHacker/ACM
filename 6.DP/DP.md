@@ -34,36 +34,200 @@ https://blog.csdn.net/qq508618087/article/details/52694720
 # 二.常见例题/模板
 
 ### 例题1(leetcode 121买卖股票的最佳时机)
-```c++
-class Solution {
-public:
-    int search(int index,std::vector<int>& prices){
-        if(index==prices.size())  {return 0;}
+这道题目的本质就是:给定一个整数数组，找出两个下标，要求：后面下标所指的数减前面下标所指的数之差最大.
 
-        //选择一个最小的买和一个最大的卖,index表示买入时间
-        int max=0;
-        for(int i=index+1;i<prices.size();i++){
-            if(prices[i]>max)  {max=prices[i];}
-        }
-        int a=max-prices[index]>0?max-prices[index]:0;
-        int b=search(index+1,prices);
-        return std::max(a,b);
+首先考虑暴力搜索的方式,我们写一个搜索函数,其中参数index表示在当前index下面最大的差值,所以为了得到最大的差值,我们
+每次只需要找index后面最大的值就行,便一定能够得到最大差值.
+
+```c++
+int search(int index,std::vector<int>& prices){
+    if(index==prices.size())  {return 0;}
+
+    //选择一个最小的买和一个最大的卖,index表示买入时间
+    int max=0;
+    for(int i=index+1;i<prices.size();i++){
+        if(prices[i]>max)  {max=prices[i];}
     }
-    
-    int maxProfit(vector<int>& prices) {
-        int result=search(0,prices);
-        return result;
+    int a=max-prices[index]>0?max-prices[index]:0;  //当前差值
+    int b=search(index+1,prices);           //下一个的差值
+    return std::max(a,b);
+}
+
+
+int maxProfit(std::vector<int>& prices) {
+    int result=search(0,prices);
+    return result;
+}
+
+int main(){
+    std::vector<int> input={7,1,5,3,6,4};
+    std::cout<<"max_profit:"<<maxProfit(input)<<std::endl;
+
+    return 0;
+}
+```
+然后提交这个结果,用时696ms,内存消耗16.2M.
+
+然后我们可以把这个改为DP形式,具体步骤如下:
+```c++
+int search(int index,std::vector<int>& prices){
+    if(index==prices.size())  {return 0;}
+
+    //选择一个最小的买和一个最大的卖,index表示买入时间
+    int max=0;
+    for(int i=index+1;i<prices.size();i++){
+        if(prices[i]>max)  {max=prices[i];}
     }
-};
+    int a=max-prices[index]>0?max-prices[index]:0;  //当前差值
+    int b=search(index+1,prices);           //下一个的差值
+    return std::max(a,b);
+}
+
+int DP(int index,std::vector<int>& prices,std::vector<int>& recorder){
+    if(index==prices.size())  {return 0;}
+
+    if(recorder[index]>=0)  {return recorder[index];}   //要是存在,直接返回
+
+    //选择一个最小的买和一个最大的卖,index表示买入时间
+    int max=0;
+    for(int i=index+1;i<prices.size();i++){
+        if(prices[i]>max)  {max=prices[i];}
+    }
+    int a=max-prices[index]>0?max-prices[index]:0;  //当前差值
+    int b=DP(index+1,prices,recorder);           //下一个的差值
+    recorder[index]=std::max(a,b);
+    return recorder[index];
+}
+
+
+int maxProfit(std::vector<int>& prices) {
+    std::vector<int> recorder(prices.size(),-1);
+    int result=DP(0,prices,recorder);
+    return result;
+
+}
+
+int main(){
+    std::vector<int> input={7,1,5,3,6,4};
+    std::cout<<"max_profit:"<<maxProfit(input)<<std::endl;
+
+    return 0;
+}
+
 ```
 
 
-## 例题１(leetcode 198.House Robber)
-思考：题目意思很简单，就是相当于一个数组，数组中有数值，你可以从数组中取值，
-但是两个值不能够是相邻的，怎么取，使得取得的值最多。
+## 例题2(leetcode 746. 使用最小花费爬楼梯)
+数组的每个索引做为一个阶梯，第 i个阶梯对应着一个非负数的体力花费值 cost[i](索引从0开始)。每当你爬上一个阶梯你都要花费对应的体力花费值，然后你可以选择继续爬一个阶梯或者爬两个阶梯。
+您需要找到达到楼层顶部的最低花费。在开始时，你可以选择从索引为 0 或 1 的元素作为初始阶梯。
 
-这样的题目一开始就想一下是不是可以用暴力来做，发现有太多情况，暴力做不了。
-于是可以采用暴力搜索的方式来做。
+示例 1:
+```
+输入: cost = [10, 15, 20]
+输出: 15
+解释: 最低花费是从cost[1]开始，然后走两步即可到阶梯顶，一共花费15。
+```
+就是从开头走到结尾的时候花费的最小值.因为思想差不多,直接给代码了.其中暴力搜索以及暴力搜索引申出来的DP都给出来了,可以看一下
+暴力搜索怎么变成DP形式的.
+```c++
+int search(int index,const std::vector<int>& cost){
+    if(index>=cost.size())  {return 0;}
+
+    //index向下一步或者两步
+    int a=cost[index]+search(index+1,cost);
+    int b=cost[index]+search(index+2,cost);
+    return std::min(a,b);
+}
+
+int DP(int index,const std::vector<int>& cost,std::vector<int>& recorder){
+    if(index>=cost.size())  {return 0;}
+    if(recorder[index]>=0)  {return recorder[index];}
+
+    //index向下一步或者两步
+    int a=cost[index]+DP(index+1,cost,recorder);
+    int b=cost[index]+DP(index+2,cost,recorder);
+
+    recorder[index]=std::min(a,b);
+    return recorder[index];
+}
+
+
+int minCostClimbingStairs(vector<int>& cost) {
+    std::vector<int> recoder0(cost.size(),-1);
+    std::vector<int> recoder1(cost.size(),-1);
+
+    int min_cost_0=DP(0,cost,recoder0);
+    int min_cost_1=DP(1,cost,recoder1);
+    int min_cost=(min_cost_0<min_cost_1)?min_cost_0:min_cost_1;
+    return min_cost;
+}
+
+
+int main(){
+    std::vector<int> input={1,100,1,1,1,100,1,1,100,1};
+    //std::cout<<"max_profit:"<<maxProfit(input)<<std::endl;
+    std::cout<<"min_cost:"<<minCostClimbingStairs(input)<<std::endl;
+
+    return 0;
+}
+```
+
+## 例题3(leetcode70 爬楼梯)
+假设你正在爬楼梯。需要 n 阶你才能到达楼顶。每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？
+
+注意：给定 n 是一个正整数。
+
+示例 1：
+```
+输入： 3
+输出： 3
+解释： 有三种方法可以爬到楼顶。
+1.  1 阶 + 1 阶 + 1 阶
+2.  1 阶 + 2 阶
+3.  2 阶 + 1 阶
+```
+思想也都差不多,直接给代码了,如下.
+这里需要注意一下,就是非递归方式下面的各种便捷条件的处理.
+```c++
+int DP(int index,const int& n,std::vector<int>& recorder){
+    if(index>=n)    {return 1;}
+    if(recorder[index]>=0)  {return recorder[index];}
+    int sum=DP(index+1,n,recorder)+DP(index+2,n,recorder);
+    recorder[index]=sum;
+    return recorder[index];
+}
+
+int DP_NOneRecursive(const int& n,std::vector<int>& recorder){
+    if(n==0)    {return 0;}
+    if(n==1)    {return 1;}
+    recorder[n-1]=1;
+    recorder[n-2]=2;
+    for(int index=n-3;index>=0;index--){
+        int sum=recorder[index+1]+recorder[index+2];
+        recorder[index]=sum;
+    }
+    return recorder[0];
+}
+
+
+int climbStairs(int n) {
+    std::vector<int> recorder(n,-1);
+    int result=DP_NOneRecursive(n,recorder);
+    return result;
+}
+
+int main(){
+    int input=5;
+    std::cout<<climbStairs(input)<<std::endl;
+
+    return 0;
+}
+```
+
+## 例题3(leetcode 198.House Robber)
+思考：题目意思很简单，就是相当于一个数组，数组中有数值，你可以从数组中取值，但是两个值不能够是相邻的，怎么取，使得取得的值最多。
+
+这样的题目一开始就想一下是不是可以用暴力来做，发现有太多情况，暴力做不了。于是可以采用暴力搜索的方式来做。
 
 **第一步：暴力搜索**
 ```c++
@@ -201,11 +365,9 @@ int main()
 }
 ```
 
-在DP这个方法中，只是小小的改变了一点点，就是加入了一个数组，
-记录下了已经计算过的值，然后就直接返回，就省得计算了。
+在DP这个方法中，只是小小的改变了一点点，就是加入了一个数组，记录下了已经计算过的值，然后就直接返回，就省得计算了。
 
-其实到这里，算是已经完成了一道动态规划的题目了。作为扩展，我们可以去掉递归，
-就是把递归改为非递归的形式。怎么改呢？
+其实到这里，算是已经完成了一道动态规划的题目了。作为扩展，我们可以去掉递归，就是把递归改为非递归的形式。怎么改呢？
 上面的代码中有一句打印的话。
 ```c++
 for(int i=0;i<n;i++)
@@ -220,68 +382,24 @@ for(int i=0;i<n;i++)
 能够得到的最大价值为3，也就是说，这个数组把所有过程都记录下来了。
 
 ```c++
-#include <iostream>
-#include <vector>
-#include <algorithm>
-using namespace std;
-
-int solve(int index,const vector<int>& v)
-{
-    //我们的策略是从头到尾开始抢
-    //先写搜索的边界条件
-    //要是抢劫过头了
-    if(index>v.size())
-    {
-        return 0;
-    }
-
-    //然后我们在一个index上面有两种决策，抢或者不抢
-    //抢的话，你会得到当前的值，然后加上跳过一个位置继续搜索的值。
-    int a=v[index]+solve(index+2,v);
-
-    //不抢的话，就放弃当前的值，然后从下一个值开始搜索.
-    int b=solve(index+1,v);
-    {
-        cout<<"a:"<<a<<" "<<"b:"<<b<<" "<<max(a,b)<<endl;
-        return max(a,b);
-    }
+int search(int index,const std::vector<int>& nums){
+    if(index>=nums.size())  {return 0;}
+    int a=nums[index]+search(index+2,nums);
+    int b=search(index+1,nums);
+    cout<<"a:"<<a<<" "<<"b:"<<b<<" "<<max(a,b)<<endl;
+    return std::max(a,b);
 }
 
-//假设商店的最大数量不超过100家
-
-
-int DP(int index,const vector<int>& v, vector<int>& temp)
-{
-    //我们的策略是从头到尾开始抢
-    //先写搜索的边界条件
-    //要是抢劫过头了
-    if(index>v.size())
-    {
-        return 0;
-    }
-
-    //这里要是算过，就不用多次计算了。直接返回算过的数字
-    if(temp[index]>=0)
-    {
-        return temp[index];
-    }
-
-    //然后我们在一个index上面有两种决策，抢或者不抢
-    //抢的话，你会得到当前的值，然后加上跳过一个位置继续搜索的值。
-    int a=v[index]+DP(index+2,v,temp);
-
-    //不抢的话，就放弃当前的值，然后从下一个值开始搜索.
-    int b=DP(index+1,v,temp);
-
-    temp[index]=max(a,b);
-    return temp[index];
+int DP(int index,const std::vector<int>& nums,std::vector<int>& recorder){
+    if(index>=nums.size())  {return 0;}
+    if(recorder[index]>=0)  {return recorder[index];}
+    int a=nums[index]+DP(index+2,nums,recorder);
+    int b=DP(index+1,nums,recorder);
+    recorder[index]=std::max(a,b);
+    return recorder[index];
 }
 
-//非递归版本
-int nonRecursion(const vector<int>& v,vector<int>& temp)
-{
-    //
-
+int DP_NoneRecursive(vector<int>& nums,std::vector<int>& recorder){
    /*
     * 首先直接把递归版本的转移方程抄下来，然后把和递归相关的都去掉,变为下面的样子
 
@@ -309,63 +427,95 @@ int nonRecursion(const vector<int>& v,vector<int>& temp)
     temp[v.size()-2]=max(v[v.size()-1],v[v.size()-2])
 
     */
-
-    //边界
-    temp[v.size()-1]=v[v.size()-1];
-    temp[v.size()-2]=max(v[v.size()-1],v[v.size()-2]);
-
-    for(int index=v.size()-3;index>=0;index--)
-    {
-        int a=v[index]+temp[index+2];
-        int b=temp[index+1];
-        temp[index]=max(a,b);
+    //边界条件需要好好判断
+    if(nums.empty())    {return 0;}
+    if(nums.size()==1)  {return nums[0];}
+    //后两个结果记录下来,这是因为我们的写法需要记录后面的结果
+    recorder[nums.size()-1]=nums[nums.size()-1];
+    recorder[nums.size()-2]=std::max(nums[nums.size()-1],nums[nums.size()-2]);
+    
+    //照抄递归的转移方程,for的话就要反向遍历了,
+    for(int index=nums.size()-3;index>=0;index--){
+        int a=nums[index]+recorder[index+2];
+        int b=recorder[index+1];
+        recorder[index]=std::max(a,b);
     }
-    return temp[0];
+    return recorder[0];
 }
 
 
-int main()
-{
-    //商店数量
-    int n;
-    cin>>n;
-    vector<int> v(n);
-    for(int i=0;i<n;i++)
-        cin>>v[i];
+int rob(vector<int>& nums) {
+    std::vector<int> recorder(nums.size(),-1);
+//    return DP(0,nums,recorder);
+    return DP_NoneRecursive(nums,recorder);
+}
 
-    //暴力搜索
-    cout<<solve(0,v)<<endl;
 
-    //递归的DP
-    //记录数组
-    vector<int> temp(n);
-    for(int i=0;i<n;i++)
-    {
-        temp[i]=-1;
-    }
-    cout<<DP(0,v,temp)<<endl;
-
-    for(int i=0;i<n;i++)
-    {
-        cout<<temp[i]<<" ";
-    }
-    cout<<endl;
-
-    //非递归的DP
-    vector<int> temp2(n);
-    cout<<nonRecursion(v,temp2)<<endl;
-    for(int i=0;i<n;i++)
-    {
-        cout<<temp2[i]<<" ";
-    }
+int main(){
+    std::vector<int> input={183,219,57,193,94,233,202,154,65,240,97,234,100,249,186,66,90,238,168,128,177,235,50,81,185,165,217,207,88,80,112,78,135,62,228,247,211};
+    std::cout<<rob(input)<<std::endl;
 
     return 0;
 }
+
 ```
 
 
 到这里，就算是说完了动态规划的基本套路了。但是更多的细节性的东西不能够忽视。下面继续
 看常见的动态规划问题。掌握常见的问题怎么设置状态。
+
+
+## 例题3.(leetcode53 最大子序和)
+给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
+
+示例:
+```asm
+输入: [-2,1,-3,4,-1,2,1,-5,4],
+输出: 6
+解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。
+```
+
+动态规划，用dp[i]表示以i结尾的最大子序列和。初始值 dp[0] = nums[0]，然后从第二个数开始遍历
+
+if 当前数加上前一个最大序列和大于当前数，则将当前数加到序列和中，nums[i] + dp[i-1] > nums[i]，则 dp[i] = nums[i] + dp[i-1];
+else 以当前数结尾的最大序列和即为当前数本身 dp[i] = nums[i]
+然后判断以当前数结尾的最大序列和是否大于最大序列和。
+
+代码
+时间复杂度：O(n)
+空间复杂度：O(n)
+```c++
+
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        int size = nums.size();        
+        int max = nums[0];
+        int dp[size];
+        dp[0] = nums[0];
+        for (int i = 1; i < size; ++i) {
+            if (nums[i] + dp[i-1] >= nums[i]) {
+                dp[i] = nums[i] + dp[i-1];
+            } else {
+                dp[i] = nums[i];                
+            }
+            if (dp[i] > max) {
+                max = dp[i];
+            }
+        }
+        return max;
+    }
+};
+```
+
+
+
+
+
+
+
+
+
 
 ## 例题2.小兵向前冲
 在nxm的棋盘上面，小兵要从左下角走到右上角，只能够向上或者向右走，问有多少种走法.
@@ -913,7 +1063,7 @@ int main()
 给定N个数，求这N个数的最长上升子序列的长度。
 
 【样例输入】
-
+ 
 7
 
 2 5 3 4 1 7 6

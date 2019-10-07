@@ -97,30 +97,96 @@ using namespace std;
 //    return 0;
 //}
 
-int search(int index,std::vector<int>& prices){
-    if(index==prices.size())  {return 0;}
+//int search(int index,const std::vector<int>& cost){
+//    if(index>=cost.size())  {return 0;}
+//
+//    //index向下一步或者两步
+//    int a=cost[index]+search(index+1,cost);
+//    int b=cost[index]+search(index+2,cost);
+//    return std::min(a,b);
+//}
+//
 
-    //选择一个最小的买和一个最大的卖,index表示买入时间
-    int max=0;
-    for(int i=index+1;i<prices.size();i++){
-        if(prices[i]>max)  {max=prices[i];}
+//int DP(int index,const int& n,std::vector<int>& recorder){
+//    if(index>=n)    {return 1;}
+//    if(recorder[index]>=0)  {return recorder[index];}
+//    int sum=DP(index+1,n,recorder)+DP(index+2,n,recorder);
+//    recorder[index]=sum;
+//    return recorder[index];
+//}
+//
+//int DP_NOneRecursive(const int& n,std::vector<int>& recorder){
+//    if(n==0)    {return 0;}
+//    if(n==1)    {return 1;}
+//    recorder[n-1]=1;
+//    recorder[n-2]=2;
+//    for(int index=n-3;index>=0;index--){
+//        int sum=recorder[index+1]+recorder[index+2];
+//        recorder[index]=sum;
+//    }
+//    return recorder[0];
+//}
+
+//int DP(int index1,int index2,const vector<int>& nums,std::vector<std::vector<int>>& recorder){
+//    if((index1>=nums.size())||(index2>=nums.size()))    {return 0;}
+//    int sum=0;
+//    for(int i=index1;i<=index2;i++)
+//    {
+//        if(index1==index2){
+//            sum=nums[index1];
+//            break;
+//        }
+//        sum+=nums[i];
+//    }
+//    int a=DP(index1,index2+1,nums,recorder);
+//    int b=DP(index1+1,index2+1,nums,recorder);
+//}
+
+//int DP(int index,const vector<int>& nums,std::vector<int>& recorder){
+//    if(index>=nums.size())  {return 0;}
+//    if(recorder[index]>=0)  {return recorder[index];}
+//    recorder[index]=std::max(nums[index],DP(index+1,nums,recorder));
+//    return recorder[index];
+//}
+//
+//
+//int maxSubArray(vector<int>& nums) {
+//    std::vector<int> recorder(nums.size(),-1);
+//    return DP(5,nums,recorder);
+//
+//
+//}
+
+static std::vector<int> path(20,-1);
+
+void search(int index,vector<int>& nums){
+    if(index>=nums.size())  {return ;}
+    for(int i=0;i<nums.size();++i)
+    {
+        path[index]=i;
+        //print path
+        for(int j=0;j<path.size();j++)
+        {
+            std::cout<<path[j]<<" ";
+        }
+        std::cout<<std::endl;
+        search(index+1,nums);
     }
-    int a=max-prices[index]>0?max-prices[index]:0;
-    int b=search(index+1,prices);
-    return std::max(a,b);
+
+}
+
+
+vector<vector<int>> permute(vector<int>& nums) {
+    search(0,nums);
+
+
+
 }
 
 
-int maxProfit(std::vector<int>& prices) {
-    int result=search(0,prices);
-    return result;
-
-}
 
 int main(){
-    std::vector<int> input={7,1,5,3,6,4};
-    std::cout<<"max_profit:"<<maxProfit(input)<<std::endl;
-
+    std::vector<int> input={1,2,3};
+    permute(input);
     return 0;
-
 }
