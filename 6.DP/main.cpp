@@ -157,36 +157,48 @@ using namespace std;
 //
 //}
 
+
 static std::vector<int> path(20,-1);
+static std::vector<bool> visited(20,false);
 
-void search(int index,vector<int>& nums){
-    if(index>=nums.size())  {return ;}
-    for(int i=0;i<nums.size();++i)
+void search(int index,std::vector<int>& nums,std::vector<std::vector<int>>& result){
+    if(index>=nums.size())
     {
-        path[index]=i;
-        //print path
-//        for(int j=0;j<path.size();j++)
-//        {
-//            std::cout<<path[j]<<" ";
-//        }
-        std::cout<<std::endl;
-        search(index+1,nums);
+        std::vector<int> temp;
+        for(int i=0;i<nums.size();i++)
+        {
+            if(visited[i]) {
+                //std::cout<<nums[i]<<" ";
+                temp.push_back(nums[i]);
+            }
+        }
+        result.push_back(temp);
+        return ;
     }
-
+    visited[index]=true;
+    search(index+1,nums,result);
+    visited[index]=false;
+    search(index+1,nums,result);
 }
 
 
-vector<vector<int>> permute(vector<int>& nums) {
-    search(0,nums);
-
-
+vector<vector<int>> subsets(vector<int>& nums) {
+    std::vector<std::vector<int>> result;
+    search(0,nums, result);
+    return result;
 
 }
-
-
 
 int main(){
-    std::vector<int> input={1,2,3};
-    permute(input);
+    std::vector<int> input={1,2,3,4,5,6,7,8,9};
+    vector<vector<int>> result=subsets(input);
+    for(int i=0;i<result.size();i++)
+    {
+        for(int j=0;j<result[i].size();j++)
+        {
+            std::cout<<result[i][j]<<" ";
+        }
+        std::cout<<std::endl;
+    }
     return 0;
 }

@@ -224,6 +224,79 @@ int main(){
 
 
 ###　子集
+例题(leetcode 78.子集)
+给定一组不含重复元素的整数数组 nums，返回该数组所有可能的子集（幂集）。
+
+说明：解集不能包含重复的子集。
+
+示例:
+```asm
+输入: nums = [1,2,3]
+输出:
+[
+  [3],
+  [1],
+  [2],
+  [1,2,3],
+  [1,3],
+  [2,3],
+  [1,2],
+  []
+]
+```
+
+
+代码如下：
+```c++
+static std::vector<int> path(20,-1);
+static std::vector<bool> visited(20,false);
+
+void search(int index,std::vector<int>& nums,std::vector<std::vector<int>>& result){
+    if(index>=nums.size())
+    {
+        std::vector<int> temp;
+        for(int i=0;i<nums.size();i++)
+        {
+            if(visited[i]) {
+                //std::cout<<nums[i]<<" ";
+                temp.push_back(nums[i]);
+            }
+        }
+        result.push_back(temp);
+        return ;
+    }
+    visited[index]=true;
+    search(index+1,nums,result);
+    visited[index]=false;
+    search(index+1,nums,result);
+}
+
+
+vector<vector<int>> subsets(vector<int>& nums) {
+    std::vector<std::vector<int>> result;
+    search(0,nums, result);
+    return result;
+
+}
+
+int main(){
+    std::vector<int> input={1,2,3,4,5,6,7,8,9};
+    vector<vector<int>> result=subsets(input);
+    for(int i=0;i<result.size();i++)
+    {
+        for(int j=0;j<result[i].size();j++)
+        {
+            std::cout<<result[i][j]<<" ";
+        }
+        std::cout<<std::endl;
+    }
+    return 0;
+}
+
+```
+
+
+
 
 
 ## 二.提高
