@@ -68,6 +68,7 @@ int main()
 //    auto v4=insert_sort(v);
 //    show(v4);
     heap_sort(v);
+    show(v);
     return 0;
 }
 

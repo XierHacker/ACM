@@ -24,16 +24,53 @@ std::vector<int> select_sort(const std::vector<int>& v)
 
 
 //堆排序
-//建堆
-void buildHeap()
-{
-
+//建堆,完成在数组v上面从v[left]到v[high]的范围内对在位置left上面的节点进行调整
+void buildHeap(std::vector<int>& v,int left,int right){
+    int i=left;
+    int j=left*2;   //说明v[j]是v[i]的左孩子
+    int temp=v[i];
+    std::cout<<"---v["<<i<<"]:"<<v[i]<<std::endl;
+    std::cout<<"---v["<<j<<"]:"<<v[j]<<std::endl;
+    std::cout<<"---temp:"<<temp<<std::endl;
+    while(j<right)
+    {
+        //要是右孩子比较大,那么把j指向右孩子(即2*i变为2*i+1)
+        if((j<right)&&(v[j]<v[j+1]))    {++j;}  //j变为2*i+1
+        if(temp<v[j])
+        {
+            v[i]=v[j];              //将v[j]调整到父节点
+            //修改i和j的值,以方便继续向下调整
+            i=j;
+            j=2*i;
+            std::cout<<"---v["<<i<<"]:"<<v[i]<<std::endl;
+            std::cout<<"---v["<<j<<"]:"<<v[j]<<std::endl;
+        }
+        else
+        {
+            break;
+        }
+    }
+    v[i]=temp;
 }
-std::vector<int> heap_sort(const std::vector<int>& v)
+std::vector<int> heap_sort(std::vector<int>& v)
 {
-    auto temp=v;
+    //auto temp=v;
+    std::cout<<v.size()<<std::endl;
     std::cout<<"v[1]'s left child:"<<v[2]<<std::endl;
     std::cout<<"v[2]'s left child:"<<v[4]<<std::endl;
+
+    //建立初始堆
+    for(int i=v.size()/2;i>=1;--i)
+    {
+        std::cout<<"v["<<i<<"]:"<<v[i]<<std::endl;
+        buildHeap(v,i,v.size()-1);
+    }
+
+    //进行n-1次循环,完成堆排序
+    for(int i=v.size()-1;i>=2;--i){
+        std::swap(v[1],v[i]);
+        buildHeap(v,1,i-1);
+    }
 
 }
 

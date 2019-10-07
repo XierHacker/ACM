@@ -7,7 +7,9 @@
 std::vector<int> select_sort(const std::vector<int>& v);
 
 //堆排序
-std::vector<int> heap_sort(const std::vector<int>& v);
+//建堆,完成在数组v上面从v[left]到v[high]的范围内对在位置left上面的节点进行调整
+void buildHeap(std::vector<int>& v,int left,int right);
+std::vector<int> heap_sort(std::vector<int>& v);
 
 //冒泡排序
 std::vector<int> bubble_sort(const std::vector<int>& v);
