@@ -165,10 +165,10 @@ void search(int index,vector<int>& nums){
     {
         path[index]=i;
         //print path
-        for(int j=0;j<path.size();j++)
-        {
-            std::cout<<path[j]<<" ";
-        }
+//        for(int j=0;j<path.size();j++)
+//        {
+//            std::cout<<path[j]<<" ";
+//        }
         std::cout<<std::endl;
         search(index+1,nums);
     }
