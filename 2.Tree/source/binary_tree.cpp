@@ -5,6 +5,7 @@
 #include "binary_tree.h"
 
 #include <iostream>
+#include <stack>
 #include <queue>
 #include <algorithm>
 
@@ -45,11 +46,26 @@ BTNode *CreateExample() {
 
 //先序遍历二叉树
 void PreOrderTraversal(BTNode *root) {
-    if (root == nullptr) { return; }       //地柜结束条件
+    if (root == nullptr) { return; }       //递归结束条件
     std::cout << root->value << " ";        //访问根节点
     PreOrderTraversal(root->lchild);    //先序遍历左子树
     PreOrderTraversal(root->rchild);    //先序遍历右子树
 }
+
+void PreOrderTraversal2(BTNode *root){
+    if(root== nullptr)  {return ;}
+    std::stack<BTNode*> recorder;
+    recorder.push(root);
+    while(!recorder.empty())
+    {
+        BTNode* p=recorder.top();
+        std::cout<<p->value<<" ";     //access
+        recorder.pop();               //pop
+        if(p->rchild!= nullptr)    {recorder.push(p->rchild);}
+        if(p->lchild!= nullptr)    {recorder.push(p->lchild);}
+    }
+}
+
 
 //中序遍历二叉树,递归版本和非递归版本
 void InOrderTraversal(BTNode *root) {
@@ -60,8 +76,25 @@ void InOrderTraversal(BTNode *root) {
 }
 
 void InOrderTraversal2(BTNode *root) {
-
-
+    if(root== nullptr)  {return ;}
+    std::stack<BTNode*> recorder;
+    BTNode* p=root;
+    while((p!= nullptr)||(!recorder.empty()))
+    {
+        //一直找左孩子
+        while(p!= nullptr)
+        {
+            recorder.push(p);
+            p=p->lchild;
+        }
+        if(!recorder.empty())
+        {
+            p=recorder.top();
+            std::cout<<p->value<<" ";
+            p=p->rchild;
+            recorder.pop();
+        }
+    }
 }
 
 //后序遍历二叉树
@@ -71,6 +104,29 @@ void PostOrderTraversal(BTNode *root) {
     PostOrderTraversal(root->rchild);     //中序遍历右子树
     std::cout << root->value << " ";        //访问根节点
 }
+
+void PostOrderTraversal2(BTNode *root){
+    if(root== nullptr)  {return ;}
+    std::stack<BTNode*> recorder1;
+    std::stack<BTNode*> recorder2;
+    recorder1.push(root);
+    while(!recorder1.empty())
+    {
+        BTNode* p=recorder1.top();
+        recorder2.push(p);
+        recorder1.pop();
+        if(p->lchild!= nullptr) {recorder1.push(p->lchild);}
+        if(p->rchild!= nullptr) {recorder1.push(p->rchild);}
+    }
+
+    while(!recorder2.empty())
+    {
+        std::cout<<recorder2.top()->value<<" ";
+        recorder2.pop();
+    }
+}
+
+
 
 //层次遍历二叉树
 void LevelTraversal(BTNode *root) {

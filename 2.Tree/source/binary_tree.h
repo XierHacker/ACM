@@ -17,15 +17,16 @@ struct BTNode {
 BTNode *CreateExample();
 
 //先序遍历二叉树
-void PreOrderTraversal(BTNode *root);
+void PreOrderTraversal(BTNode *root);       //递归版本
+void PreOrderTraversal2(BTNode *root);      //非递归版本
 
-//中序遍历二叉树,递归版本和非递归版本
-void InOrderTraversal(BTNode *root);
-
-void InOrderTraversal2(BTNode *root);
+//中序遍历二叉树,
+void InOrderTraversal(BTNode *root);        //递归版本
+void InOrderTraversal2(BTNode *root);       //非递归版本
 
 //后序遍历二叉树
-void PostOrderTraversal(BTNode *root);
+void PostOrderTraversal(BTNode *root);      //递归版本
+void PostOrderTraversal2(BTNode *root);     //非递归版本
 
 //层次遍历二叉树
 void LevelTraversal(BTNode *root);

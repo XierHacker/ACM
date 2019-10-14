@@ -11,17 +11,35 @@ int main() {
     std::cout << "root->lchild->value:" << root->lchild->value << std::endl;
 
     //先序遍历测试
-    std::cout << "PreOrder Traversal:";
+    std::cout << "PreOrder Traversal With Recursive:";
     PreOrderTraversal(root);
     std::cout << std::endl;
+
+    std::cout << "PreOrder Traversal NoneRecursive:";
+    PreOrderTraversal2(root);
+    std::cout << std::endl<<std::endl;
+
+
 
     //中序遍历测试
     std::cout << "InOrder Traversal With Recursive:";
     InOrderTraversal(root);
     std::cout << std::endl;
 
-
     //中序遍历非递归
+    std::cout << "InOrder Traversal NoneRecursive:";
+    InOrderTraversal2(root);
+    std::cout << std::endl<<std::endl;
+
+    //后序遍历
+    std::cout << "PostOrder Traversal With Recursive:";
+    PostOrderTraversal(root);
+    std::cout << std::endl;
+
+    std::cout << "PostOrder Traversal NoneRecursive:";
+    PostOrderTraversal2(root);
+    std::cout << std::endl<<std::endl;
+
 
     //层次遍历
     std::cout << "Level Traversal:";
