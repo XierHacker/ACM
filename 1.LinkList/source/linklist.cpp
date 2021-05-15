@@ -153,7 +153,7 @@ ListNode *AddTwoNumbers(ListNode *head1, ListNode *head2) {
         //记得转移到下一个节点,不然死循环
         temp1 = temp1 ? temp1->next_node : nullptr;
         temp2 = temp2 ? temp2->next_node : nullptr;
-    }
+
     return new_head;
 }
 

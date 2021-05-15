@@ -9,6 +9,18 @@ struct ListNode
     ListNode* next;
 };
 ```
+在leetcode中，单链表一般定义如下
+```c++
+struct ListNode {
+      int val;
+      ListNode *next;
+      ListNode() : val(0), next(nullptr) {}
+      ListNode(int x) : val(x), next(nullptr) {}
+      ListNode(int x, ListNode *next) : val(x), next(next) {}
+};
+```
+
+
 
 最基本的单链表的操作就是创建一个单链表了,这里假设我们有一个数组,我们想要通过这个数组建立单链表
 ```c++
@@ -315,3 +327,167 @@ ListNode* AddTwoNumbers(ListNode* head1,ListNode* head2){
 
 
 
+
+## LeetCode高频链表题目
+
+
+
+
+
+### leetcode206 反转链表
+```c++
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        //异常条件
+        if(head==nullptr || head->next==nullptr){
+            return head;
+        }
+        ListNode* current_node=head;
+        ListNode* prev_node=nullptr;
+        ListNode* new_head=nullptr;
+        
+        while(current_node!=nullptr){
+            if(current_node->next==nullptr){
+                new_head=current_node;
+            }
+            ListNode* temp_node=current_node->next;
+            current_node->next=prev_node;
+            prev_node=current_node;
+            current_node=temp_node;
+        }
+        return new_head;
+    }
+};
+
+```
+使用的就是双指针的策略。
+
+![](https://pic.leetcode-cn.com/7d8712af4fbb870537607b1dd95d66c248eb178db4319919c32d9304ee85b602-%E8%BF%AD%E4%BB%A3.gif)
+
+题解如下：
+[**动画演示+多种解法 206. 反转链表**](https://leetcode-cn.com/problems/reverse-linked-list/solution/dong-hua-yan-shi-206-fan-zhuan-lian-biao-by-user74/)
+
+
+### leetcode160 相交链表
+```c++
+class Solution {
+public:
+ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        //异常条件
+        if(headA==nullptr || headB==nullptr){
+            return nullptr;
+        }
+    
+        ListNode* A=headA;
+        ListNode* B=headB;
+        while(A!=B){
+            A=A!=nullptr?A->next:headB;
+            B=B!=nullptr?B->next:headA;
+        }
+        return A;
+    }
+};
+
+```
+
+
+
+题解[**160. 相交链表（双指针，清晰图解）**](https://leetcode-cn.com/problems/intersection-of-two-linked-lists/solution/intersection-of-two-linked-lists-shuang-zhi-zhen-l/)
+
+
+### leetcode21 合并有序链表
+```c++
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+        //为空的边界处理
+        if(l1==nullptr)    {return l2;}
+        if(l2==nullptr)    {return l1;}
+
+        ListNode* merge_head=nullptr;
+
+        if(l1->val<=l2->val){
+            merge_head=l1;
+            merge_head->next=mergeTwoLists(l1->next,l2);
+        }else{
+            merge_head=l2;
+            merge_head->next=mergeTwoLists(l1,l2->next);
+        }
+        return merge_head;
+    }
+};
+
+```
+
+题解：简单的递归。
+
+
+### leetcode 141 环形链表
+
+```c++
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+        if (head == nullptr || head->next == nullptr) {
+            return false;
+        }
+        ListNode* slow = head;
+        ListNode* fast = head->next;
+        while (slow != fast) {
+            if (fast == nullptr || fast->next == nullptr) {
+                return false;
+            }
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        return true;
+    }
+};
+```
+
+题解：快慢指针
+![](https://pic.leetcode-cn.com/1617159413-iCDVNF-141.%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8.gif)
+
+
+### leetcode2 两数相加
+
+```c++
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        ListNode* result=new ListNode;
+        ListNode* record;
+        int d=0;
+        int i=0;
+        //add
+        while(l1!=nullptr||l2!=nullptr||d){
+            int sum=0;
+            sum+=(l1?l1->val:0)+(l2?l2->val:0)+d;
+            d=sum/10;       //十位
+            int num=sum%10; //个位
+            
+            //创建链表
+            ListNode* temp_node=new ListNode;
+            temp_node->val=num;
+            if(i==0){
+                result=temp_node;
+                result->next=nullptr;
+                record=result;
+            }
+            else{
+                record->next=temp_node;
+                record=temp_node;
+            }
+            l1=l1?l1->next:nullptr;
+            l2=l2?l2->next:nullptr;
+            ++i;
+        }
+        record->next=nullptr;
+        return result;
+    }
+};
+
+```
+
+题解：两数相加，注意进位就行。
