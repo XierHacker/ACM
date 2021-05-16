@@ -331,9 +331,6 @@ ListNode* AddTwoNumbers(ListNode* head1,ListNode* head2){
 ## LeetCode高频链表题目
 
 
-
-
-
 ### leetcode206 反转链表
 ```c++
 class Solution {
@@ -491,3 +488,40 @@ public:
 ```
 
 题解：两数相加，注意进位就行。
+
+
+
+### 19. 删除链表的倒数第 N 个结点
+```c++
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        if(head==nullptr||head->next==nullptr){
+            return nullptr;
+        }
+        
+        //两个指针,一个先走n步,一个接着走.然后先走的走到末尾
+        ListNode* fast_node=head;
+        ListNode* slow_node=head;
+
+        //先走n步
+        while(n--){
+            fast_node=fast_node->next;
+        }
+        //要是fast_node走到底了,说明第一个就是要删除的
+        if(fast_node==nullptr){
+            return head->next;
+        }
+        
+        //一起走
+        while(fast_node->next!=nullptr){
+            fast_node=fast_node->next;
+            slow_node=slow_node->next;
+        }
+
+        //目前slow node就为倒数n个
+        slow_node->next=slow_node->next->next;
+        return head;
+    }
+};
+```

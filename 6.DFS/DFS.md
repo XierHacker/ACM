@@ -1,8 +1,14 @@
-# 深度优先搜索
+# leetcode高频题
+## 树相关
 
-深度优先搜索是非常常用的一个万金油技巧,不仅仅是涵盖本身的搜索知识,更重要的是他还能够使用在其他的题目上面,比如动态规划等等.
+#
 
-## 一.框架
+
+
+
+
+
+## 数学相关(排列,组合,子集等等)
 下面首先通过三道题目来讲一下深度优先搜索的框架,然后再根据这个框架进行深度优先搜索的实战.这三道题目分别表示三类问题:
 - **排列**
 - **组合**
@@ -34,7 +40,7 @@
 下面的代码就是进行全排列的一般框架了
 ```c++
 static std::vector<int> path(20,-1);
-static std::vector<bool> visited(20,false);
+static std::vector<bool> visited(20,false);     //用来判断重复
 
 void search(int index,vector<int>& nums,std::vector<std::vector<int>>& result){
     //到达边界，开始记录路径结果
@@ -58,7 +64,7 @@ void search(int index,vector<int>& nums,std::vector<std::vector<int>>& result){
 //        }
 //        std::cout<<std::endl;
             search(index+1,nums,result);
-            visited[i]=false;
+            visited[i]=false;           //因为是全局变量,记得重置为false
         }
 
     }
@@ -294,10 +300,4 @@ int main(){
 }
 
 ```
-
-
-
-
-
-## 二.提高
 

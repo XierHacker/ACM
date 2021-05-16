@@ -1190,3 +1190,92 @@ int MaxSubSum3(int *arr,int len)
 
 
 # 三.深度思考
+
+
+# 四.leetcode高频题
+## 最优问题归类(最大,最小,最长等等)
+### leetcode 198 打家劫舍
+```c++
+class Solution {
+public:
+    int dp(int index,vector<int>& nums,vector<int>& records){
+        //到达数组末尾
+        if(index>=nums.size()){
+            return 0;
+        }
+        if(records[index]>=0){
+            return records[index];
+        }
+
+        //index这家抢,跳到index+2这家继续抢
+        int a=nums[index]+dp(index+2,nums,records);
+        //从index+1这家直接抢
+        int b=dp(index+1,nums,records);
+        
+        records[index]=std::max(a,b);
+
+        return records[index];
+    }
+
+    int rob(vector<int>& nums) {
+        vector<int> records(100,-1);
+        return dp(0,nums,records);
+    }
+};
+```
+
+题目特点:
+- 1.属于最大问题.
+- 2.可以用搜索解决.同时要注意.是选择两种策略中的一种,所以max运算本质是选择其中一个.
+
+
+
+### 121. 买卖股票的最佳时机
+
+
+
+
+## 计数问题归类(几种方法,几种途径等等)
+
+
+
+## 子序列问题
+
+
+
+## 棋盘矩阵问题
+
+
+## 滑动窗口问题
+### leetocode3. 无重复字符的最长子串
+
+```c++
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        if(s.size()==0){
+            return 0;
+        }
+        //
+        unordered_set<char> windows;
+        int max_length=0;
+        int record_len=0;
+        int left_index=0;
+        for(int i=0;i<s.size();i++){
+            while(windows.find(s[i])!=windows.end()){
+                //每次删除左边的,直到删到没有
+                windows.erase(s[left_index]);
+                ++left_index;           //记录每次left_index所在的位置
+                record_len--;
+            }
+            record_len+=1;
+            windows.insert(s[i]);
+            max_length=(record_len>max_length)?record_len:max_length;
+        }
+        return max_length;
+    }
+};
+```
+
+题解:
+这个就是一个滑动的窗口,一旦有重复,就把最左边开始,删除到没有重复为止.然后重新开始添加,每次记录长度.
